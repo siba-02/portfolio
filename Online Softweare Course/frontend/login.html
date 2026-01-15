@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Login | Student System</title>
+  <style>
+    /* ===== Reset & Body ===== */
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #001f3f, #003f73);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      overflow: hidden;
+    }
+
+    /* ===== Animated Background ===== */
+    body::before, body::after {
+      content: '';
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(120px);
+      opacity: 0.6;
+      animation: float 6s ease-in-out infinite alternate;
+      z-index: 0;
+    }
+
+    body::before {
+      width: 300px;
+      height: 300px;
+      background: #00c3ff;
+      top: 10%;
+      left: 20%;
+      animation-delay: 1s;
+    }
+
+    body::after {
+      width: 400px;
+      height: 400px;
+      background: #0074D9;
+      bottom: 10%;
+      right: 15%;
+    }
+
+    @keyframes float {
+      from { transform: translateY(0px); }
+      to { transform: translateY(30px); }
+    }
+
+    /* ===== Header + Navigation ===== */
+    header {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(10px);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 60px;
+      z-index: 5;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.4);
+    }
+
+    header h1 {
+      color: #fff;
+      text-shadow: 0 0 10px #00c3ff;
+      font-size: 22px;
+      font-weight: 600;
+      letter-spacing: 1px;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin: 0 15px;
+      font-weight: 500;
+      transition: 0.3s;
+      position: relative;
+    }
+
+    nav a::after {
+      content: "";
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0%;
+      height: 2px;
+      background: #00c3ff;
+      transition: 0.3s;
+    }
+
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    nav a:hover {
+      color: #00c3ff;
+      text-shadow: 0 0 5px #00c3ff;
+    }
+
+    /* ===== 3D Glass Card ===== */
+    .form-container {
+      position: relative;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+      width: 350px;
+      z-index: 2;
+      transform: perspective(800px) rotateY(0deg);
+      transition: transform 0.3s ease;
+    }
+
+    .form-container:hover {
+      transform: perspective(800px) rotateY(5deg);
+    }
+
+    h2 {
+      text-align: center;
+      color: #fff;
+      font-weight: 600;
+      margin-bottom: 25px;
+      text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    }
+
+    /* ===== Input Fields ===== */
+    input[type="text"], input[type="password"] {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: none;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.2);
+      color: #fff;
+      font-size: 15px;
+      outline: none;
+      box-shadow: inset 2px 2px 5px rgba(0,0,0,0.2),
+                  inset -2px -2px 5px rgba(255,255,255,0.1);
+    }
+
+    input::placeholder {
+      color: #e0e0e0;
+    }
+
+    /* ===== Button ===== */
+    button {
+      width: 100%;
+      padding: 12px;
+      background: linear-gradient(135deg, #00c3ff, #0074D9);
+      border: none;
+      border-radius: 8px;
+      color: white;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 10px;
+      box-shadow: 0 5px 15px rgba(0, 115, 255, 0.4);
+      transition: all 0.3s ease;
+    }
+
+    button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0, 115, 255, 0.6);
+    }
+
+    /* ===== Back Link ===== */
+    p a {
+      color: #00c3ff;
+      text-decoration: none;
+      display: block;
+      text-align: center;
+      margin-top: 15px;
+      font-size: 14px;
+      transition: 0.3s;
+    }
+
+    p a:hover {
+      text-shadow: 0 0 10px #00c3ff;
+    }
+
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Student Registration System</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="course.html">Course</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <div class="form-container">
+    <h2>Admin Login</h2>
+    <form action="login.php" method="post">
+      <input type="text" name="username" placeholder="Enter Username" required>
+      <input type="password" name="password" placeholder="Enter Password" required>
+      <button type="submit">Login</button>
+    </form>
+    <p><a href="index.html">← Back to Registration</a></p>
+  </div>
+</body>
+</html>

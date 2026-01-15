@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>All In One – Online Shopping</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial;transition:.3s}
+body{background:#f4f6f8;line-height:1.6}
+
+/* NAV */
+nav{
+display:flex;justify-content:space-between;align-items:center;
+padding:15px 30px;background:#fff;
+box-shadow:0 4px 12px rgba(0,0,0,.15);
+position:sticky;top:0;z-index:1000
+}
+nav img{height:45px}
+nav input{width:320px;padding:8px;border-radius:20px;border:1px solid #ccc}
+.nav-items a{margin-left:15px;font-weight:bold;cursor:pointer}
+
+/* CATEGORY */
+.sec-nav{
+display:flex;justify-content:space-around;flex-wrap:wrap;
+background:#ffecd2;padding:12px;font-weight:bold
+}
+.sec-nav p:hover{color:#d81b60;cursor:pointer}
+
+/* HERO */
+.hero{
+display:flex;justify-content:space-between;align-items:center;
+padding:70px 40px;
+background:url(weather.jpeg) center/cover no-repeat
+}
+.hero h1{font-size:40px;color:#b8004c}
+.hero button{
+margin-top:15px;padding:12px 25px;border:none;
+background:linear-gradient(45deg,#ff1493,#ff9800);
+color:white;border-radius:25px;font-size:16px
+}
+
+/* SECTION */
+section{padding:60px 30px}
+.section-title{
+text-align:center;font-size:32px;color:#ff1493;margin-bottom:35px
+}
+
+/* PRODUCTS */
+.products{
+display:flex;flex-wrap:wrap;justify-content:center;gap:25px
+}
+.product{
+width:230px;background:#fff;padding:12px;border-radius:15px;
+box-shadow:0 12px 25px rgba(0,0,0,.18);text-align:center
+}
+.product:hover{transform:scale(1.05)}
+.product img{
+width:100%;height:180px;border-radius:12px;object-fit:cover
+}
+.product button{
+margin-top:8px;padding:6px 15px;border:none;
+background:#ff9800;color:#fff;border-radius:20px
+}
+
+/* INFO */
+.info-grid{
+display:flex;flex-wrap:wrap;justify-content:space-around
+}
+.info{
+width:260px;margin:20px;text-align:center
+}
+
+/* SELLER */
+.seller{
+background:#c62828;color:white;text-align:center;padding:60px
+}
+
+/* FAQ */
+.faq{max-width:800px;margin:auto}
+.faq p{
+background:#fff;padding:15px;margin:10px 0;
+border-radius:8px;box-shadow:0 3px 10px rgba(0,0,0,.1)
+}
+
+/* LOGIN */
+.popup{
+display:none;position:fixed;top:0;left:0;width:100%;height:100%;
+background:rgba(0,0,0,.6);justify-content:center;align-items:center
+}
+.popup-box{
+background:white;padding:30px;border-radius:10px;width:300px
+}
+.popup-box input{width:100%;padding:8px;margin:10px 0}
+
+/* FOOTER */
+.footer{
+background:#212121;color:#ddd;padding:60px
+}
+.footer-grid{
+display:flex;flex-wrap:wrap;justify-content:space-around
+}
+.footer div{width:260px;margin:20px}
+.footer h3{color:#ffeb3b}
+</style>
+</head>
+
+<body>
+
+<!-- NAV -->
+<nav>
+<img src="all_img/All_In_One_.png" alt="All In One Logo">
+<input type="text" id="search" placeholder="Search products">
+<div class="nav-items">
+<a onclick="openLogin()">👤 Login</a>
+<a onclick="downloadApp()">⬇ Download</a>
+<a href="cart.html">🛒 Cart (<span id="cart">0</span>)</a>
+</div>
+</nav>
+
+<!-- CATEGORY -->
+<div class="sec-nav">
+<p onclick="filter('all')">All</p>
+<p onclick="filter('women')">Women</p>
+<p onclick="filter('men')">Men</p>
+<p onclick="filter('kids')">Kids</p>
+<p onclick="filter('electronics')">Electronics</p>
+<p onclick="filter('home')">Home</p>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+<div>
+<h1>India’s Most Trusted Online Shopping</h1>
+<p>✔ Free Delivery</p>
+<p>✔ Cash on Delivery</p>
+<p>✔ Easy Return</p>
+<button onclick="downloadApp()">Download App</button>
+</div>
+<img src="all_img/all.webp" width="320">
+</div>
+
+<!-- PRODUCTS -->
+<section>
+<h2 class="section-title">Featured Products</h2>
+<div class="products">
+
+<div class="product" data-cat="women" data-name="saree">
+<img src="all_img/saree.webp">
+<h4>Saree</h4><p>₹999</p>
+<button onclick="addCart('Saree',999,'all_img/saree.webp')">Add to Cart</button>
+</div>
+
+<div class="product" data-cat="women" data-name="kurti">
+<img src="all_img/kurti.webp">
+<h4>Kurti</h4><p>₹899</p>
+<button onclick="addCart('Kurti',899,'all_img/kurti.webp')">Add to Cart</button>
+</div>
+
+<div class="product" data-cat="men" data-name="shirt">
+<img src="all_img/men.webp">
+<h4>Men Shirt</h4><p>₹699</p>
+<button onclick="addCart('Men Shirt',699,'all_img/men.webp')">Add to Cart</button>
+</div>
+
+<div class="product" data-cat="men" data-name="shoes">
+<img src="all_img/men%20shoes.webp">
+<h4>Men Shoes</h4><p>₹899</p>
+<button onclick="addCart('Men Shoes',899,'all_img/men shoes.webp')">Add to Cart</button>
+</div>
+
+<div class="product" data-cat="kids" data-name="baby">
+<img src="all_img/huggies.webp">
+<h4>Baby Care</h4><p>₹299</p>
+<button onclick="addCart('Baby Care',299,'all_img/huggies.webp')">Add to Cart</button>
+</div>
+
+<div class="product" data-cat="electronics" data-name="electronics">
+<img src="all_img/ec.webp">
+<h4>Electronics</h4><p>₹1299</p>
+<button onclick="addCart('Electronics',1299,'all_img/ec.webp')">Add to Cart</button>
+</div>
+
+<div class="product" data-cat="home" data-name="bag">
+<img src="all_img/bag.webp">
+<h4>Bag</h4><p>₹799</p>
+<button onclick="addCart('Bag',799,'all_img/bag.webp')">Add to Cart</button>
+</div>
+
+<div class="product" data-cat="home" data-name="accessories">
+<img src="all_img/accessories.webp">
+<h4>Accessories</h4><p>₹399</p>
+<button onclick="addCart('Accessories',399,'all_img/accessories.webp')">Add to Cart</button>
+</div>
+
+</div>
+</section>
+
+<!-- WHY US -->
+<section>
+<h2 class="section-title">Why Customers Love Us</h2>
+<div class="info-grid">
+<div class="info"><h3>50M+ Users</h3><p>Trusted Across India</p></div>
+<div class="info"><h3>Fast Delivery</h3><p>Doorstep Service</p></div>
+<div class="info"><h3>Secure Payment</h3><p>100% Safe</p></div>
+<div class="info"><h3>Easy Returns</h3><p>No Hassle</p></div>
+</div>
+</section>
+
+<!-- SELLER -->
+<div class="seller">
+<h1>Become a Seller</h1>
+<img src="all_img/seler.png" width="280">
+<p>Grow your business with us</p>
+</div>
+
+<!-- FAQ -->
+<section>
+<h2 class="section-title">FAQ</h2>
+<div class="faq">
+<p><b>Q:</b> How to order?<br><b>A:</b> Add to cart and checkout.</p>
+<p><b>Q:</b> COD available?<br><b>A:</b> Yes.</p>
+<p><b>Q:</b> Return policy?<br><b>A:</b> 7-day easy return.</p>
+</div>
+</section>
+
+<!-- LOGIN -->
+<div class="popup" id="login">
+<div class="popup-box">
+<h3>Login</h3>
+<input placeholder="Username">
+<input type="password" placeholder="Password">
+<button onclick="login()">Login</button>
+<button onclick="closeLogin()">Close</button>
+</div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+<div class="footer-grid">
+<div>
+<h3>About</h3>
+<p>All In One is an Indian online shopping platform.</p>
+</div>
+<div>
+<h3>Support</h3>
+<p>Help Center</p>
+<p>Returns</p>
+</div>
+<div>
+<h3>Contact</h3>
+<p>Email: support@allinone.com</p>
+</div>
+</div>
+<p style="text-align:center;margin-top:20px">© 2026 All In One</p>
+</div>
+
+<!-- SCRIPT -->
+<script>
+function addCart(name, price, img){
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    let found = cart.find(p => p.name === name);
+
+    if(found){
+        found.qty++;
+    } else {
+        cart.push({name, price, img, qty:1});
+    }
+
+    localStorage.setItem("cart", JSON.stringify(cart));
+    document.getElementById("cart").innerText = cart.length;
+    alert("Item added to cart");
+}
+
+function openLogin(){document.getElementById("login").style.display="flex";}
+function closeLogin(){document.getElementById("login").style.display="none";}
+function login(){alert("Login Successful");closeLogin();}
+function downloadApp(){alert("Download Started");}
+
+function filter(cat){
+document.querySelectorAll(".product").forEach(p=>{
+p.style.display=(cat=="all"||p.dataset.cat==cat)?"block":"none";
+});
+}
+
+document.getElementById("search").addEventListener("keyup",()=>{
+let v=search.value.toLowerCase();
+document.querySelectorAll(".product").forEach(p=>{
+p.style.display=p.dataset.name.includes(v)?"block":"none";
+});
+});
+</script>
+
+</body>
+</html>

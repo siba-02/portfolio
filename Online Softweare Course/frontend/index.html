@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Student Registration System</title>
+  <style>
+    /* ===== Global Reset ===== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: "Poppins", sans-serif;
+      background: linear-gradient(135deg, #001f3f, #003f73);
+      color: #fff;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* ===== Navbar ===== */
+    nav {
+      width: 100%;
+      background: rgba(0, 64, 128, 0.85);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 60px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 5px 25px rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(10px);
+    }
+
+    .logo {
+      font-size: 26px;
+      font-weight: 700;
+      color: cyan;
+      text-shadow: 0 0 8px cyan;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 25px;
+    }
+
+    .nav-links a {
+      font-weight: 600;
+      transition: 0.3s;
+      position: relative;
+    }
+
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      bottom: -3px;
+      left: 0;
+      width: 0%;
+      height: 3px;
+      background: cyan;
+      border-radius: 2px;
+      transition: 0.3s;
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .nav-links a:hover {
+      color: cyan;
+      text-shadow: 0 0 10px cyan;
+    }
+
+    /* ===== Hero Section ===== */
+    .hero {
+      height: 90vh;
+      background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
+        url("https://images.unsplash.com/photo-1581091215367-59ab6b48e23d?auto=format&fit=crop&w=1350&q=80") 
+        center/cover no-repeat;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .hero h1 {
+      font-size: 3rem;
+      color: cyan;
+      text-shadow: 0 0 15px cyan;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      margin-top: 15px;
+      max-width: 600px;
+      color: #e0e0e0;
+    }
+
+    .hero button {
+      margin-top: 30px;
+      padding: 12px 30px;
+      border: none;
+      border-radius: 8px;
+      background: linear-gradient(135deg, cyan, #0078d7);
+      color: #fff;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.3s;
+      box-shadow: 0 5px 20px rgba(0, 255, 255, 0.3);
+    }
+
+    .hero button:hover {
+      background: linear-gradient(135deg, #00ffff, #004080);
+      transform: scale(1.05);
+      box-shadow: 0 8px 25px rgba(0, 255, 255, 0.5);
+    }
+
+    /* ===== Sections ===== */
+    section {
+      padding: 80px 10%;
+      text-align: center;
+    }
+
+    section h2 {
+      font-size: 2.2rem;
+      margin-bottom: 20px;
+      color: cyan;
+      text-shadow: 0 0 10px cyan;
+    }
+
+    .about p {
+      font-size: 1.1rem;
+      max-width: 800px;
+      margin: auto;
+      line-height: 1.6;
+      color: #ddd;
+    }
+
+    /* ===== Courses ===== */
+    .courses {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 35px;
+      margin-top: 50px;
+    }
+
+    .course-card {
+      background: rgba(255, 255, 255, 0.1);
+      border: 2px solid rgba(0, 255, 255, 0.2);
+      border-radius: 20px;
+      overflow: hidden;
+      text-align: center;
+      padding: 25px;
+      box-shadow: 0 0 25px rgba(0, 255, 255, 0.1);
+      backdrop-filter: blur(12px);
+      transition: all 0.4s ease;
+      position: relative;
+    }
+
+    .course-card:hover {
+      transform: translateY(-10px) scale(1.02);
+      border-color: cyan;
+      box-shadow: 0 0 40px rgba(0, 255, 255, 0.3);
+    }
+
+    .course-card::before {
+      content: "";
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      right: -2px;
+      bottom: -2px;
+      border-radius: 20px;
+      background: linear-gradient(45deg, cyan, #0078d7, cyan);
+      opacity: 0;
+      transition: opacity 0.4s;
+      z-index: -1;
+    }
+
+    .course-card:hover::before {
+      opacity: 0.4;
+      filter: blur(20px);
+    }
+
+    .course-card img {
+      width: 100%;
+      height: 170px;
+      border-radius: 12px;
+      margin-bottom: 15px;
+      object-fit: cover;
+      transition: 0.4s ease;
+    }
+
+    .course-card:hover img {
+      transform: scale(1.05);
+      filter: brightness(1.2);
+    }
+
+    .course-card h3 {
+      color: cyan;
+      font-size: 1.3rem;
+      margin-bottom: 10px;
+      text-shadow: 0 0 10px cyan;
+    }
+
+    .course-card p {
+      color: #d5e8f8;
+      font-size: 0.95rem;
+      line-height: 1.5;
+      margin-bottom: 15px;
+    }
+
+    .course-card button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      color: #fff;
+      cursor: pointer;
+      background: linear-gradient(135deg, cyan, #0078d7);
+      transition: 0.3s;
+      box-shadow: 0 5px 15px rgba(0, 255, 255, 0.2);
+    }
+
+    .course-card button:hover {
+      background: linear-gradient(135deg, #00ffff, #004080);
+      box-shadow: 0 0 25px cyan;
+      transform: scale(1.05);
+    }
+
+    /* ===== Contact Section ===== */
+    .contact form {
+      max-width: 500px;
+      margin: auto;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 40px;
+      border-radius: 15px;
+      backdrop-filter: blur(15px);
+      box-shadow: 0 10px 30px rgba(0, 255, 255, 0.2);
+    }
+
+    .contact input, .contact textarea {
+      width: 100%;
+      margin: 10px 0;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      font-size: 15px;
+      outline: none;
+      color: #333;
+    }
+
+    .contact button {
+      width: 100%;
+      padding: 12px;
+      background: linear-gradient(135deg, cyan, #0078d7);
+      border: none;
+      border-radius: 8px;
+      color: #fff;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .contact button:hover {
+      background: linear-gradient(135deg, #00ffff, #004080);
+    }
+
+    /* ===== Footer ===== */
+    footer {
+      background: rgba(0, 32, 64, 0.8);
+      text-align: center;
+      padding: 20px;
+      color: #eee;
+      font-size: 14px;
+      letter-spacing: 0.5px;
+      backdrop-filter: blur(10px);
+    }
+
+    @media (max-width: 768px) {
+      nav {
+        flex-direction: column;
+        gap: 10px;
+        padding: 20px;
+      }
+
+      .hero h1 {
+        font-size: 2.3rem;
+      }
+
+      .hero p {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav>
+    <div class="logo">Student Course Portal</div>
+    <div class="nav-links">
+      <a href="#home">Home</a>
+      <a href="#about">About</a>
+      <a href="#courses">Courses</a>
+      <a href="#contact">Contact</a>
+      <a href="register.html">Register</a>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero" id="home">
+    <h1>Welcome to Our Software Course System</h1>
+    <p>Register, explore courses, and start your learning journey with us today.</p>
+    <a href="register.html"><button>Register Now</button></a>
+  </section>
+
+  <!-- About Section -->
+  <section class="about" id="about">
+    <h2>About Us</h2>
+    <p>Our Student Registration System helps learners register easily, manage profiles, and explore advanced software courses with modern technology. We are dedicated to simplifying student management and enhancing learning experiences.</p>
+  </section>
+
+  <!-- Courses Section -->
+  <section id="courses">
+    <h2>Our Popular Courses</h2>
+    <div class="courses">
+      <div class="course-card">
+        <img src="images/web.jpg" alt="Web Development">
+        <h3>Web Development</h3>
+        <p>Learn HTML, CSS, and JS to create interactive, responsive, and modern web applications.</p>
+        <a href="courses/course-web.html" target="_blank"><button>Read More</button></a>
+      </div>
+
+      <div class="course-card">
+        <img src="images/data.webp" alt="Data Science">
+        <h3>Data Science</h3>
+        <p>Master data analysis, AI, and Python to turn raw data into valuable insights.</p>
+        <a href="courses/course-data.html" target="_blank"><button>Read More</button></a>
+      </div>
+
+      <div class="course-card">
+        <img src="images/networking.webp" alt="Networking">
+        <h3>Networking</h3>
+        <p>Understand computer networks, cybersecurity, and cloud concepts with practical labs.</p>
+        <a href="courses/course-network.html" target="_blank"><button>Read More</button></a>
+      </div>
+
+      <div class="course-card">
+        <img src="images/garphic design.webp" alt="Graphic Design">
+        <h3>Graphic Design</h3>
+        <p>Create professional posters, branding visuals, and digital art with Photoshop & Canva.</p>
+        <a href="courses/course-design.html" target="_blank"><button>Read More</button></a>
+      </div>
+
+      <div class="course-card">
+        <img src="images/mobile app devlopment.webp" alt="Mobile App Development">
+        <h3>Mobile App Development</h3>
+        <p>Build Android & iOS apps using Flutter, React Native, and Kotlin frameworks.</p>
+        <a href="courses/course-mobile.html" target="_blank"><button>Read More</button></a>
+      </div>
+
+      <div class="course-card">
+        <img src="images/cy.jpg" alt="Cybersecurity">
+        <h3>Cybersecurity</h3>
+        <p>Learn ethical hacking, network security, and cyber defense from industry experts.</p>
+        <a href="courses/course-cyber.html" target="_blank"><button>Read More</button></a>
+      </div>
+
+      <div class="course-card">
+        <img src="images/ai.jpg" alt="Artificial Intelligence">
+        <h3>Artificial Intelligence</h3>
+        <p>Explore deep learning, neural networks, and NLP to create smart AI solutions.</p>
+        <a href="courses/course-ai.html" target="_blank"><button>Read More</button></a>
+      </div>
+
+      <div class="course-card">
+        <img src="images/could.jpeg" alt="Cloud Computing">
+        <h3>Cloud Computing</h3>
+        <p>Master AWS, Azure, and Google Cloud for scalable web deployment and management.</p>
+        <a href="courses/course-cloud.html" target="_blank"><button>Read More</button></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section class="contact" id="contact">
+    <h2>Contact Us</h2>
+    <form action="contact.php" method="post">
+      <input type="text" name="name" placeholder="Your Name" required />
+      <input type="email" name="email" placeholder="Your Email" required />
+      <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
+      <button type="submit">Send Message</button>
+    </form>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 Software Course System | Designed by Siba</p>
+  </footer>
+</body>
+</html>

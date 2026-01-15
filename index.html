@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Sibaprasad Nayak | Portfolio</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Poppins',sans-serif;
+}
+body{background:#f5f7fb;scroll-behavior:smooth;}
+
+
+/* Slide Banner */
+.slide-banner {
+  background: linear-gradient(90deg, #9cb6ea, #c285e2);
+  color: white;
+  overflow: hidden;
+  white-space: nowrap;
+  border-radius:20px;
+  position: sticky;
+}
+.slide-banner p {
+  display: inline-block;
+  padding: 10px 0;
+  animation: slideText 15s linear infinite;
+  font-weight: 500;
+}
+@keyframes slideText {
+  0% { transform: translateX(100%); }
+  100% { transform: translateX(-100%); }
+}
+
+/* Navbar */
+nav{
+  position:sticky;top:0;z-index:100;
+  background:#0f172a;color:#fff;
+  display:flex;justify-content:space-between;
+  padding:15px 40px;
+}
+nav ul{display:flex;list-style:none;gap:20px;}
+nav a{color:#fff;text-decoration:none;font-weight:500;}
+nav a:hover{color:#38bdf8}
+
+/* Header */
+header{
+  background:linear-gradient(135deg,#020f26,#04152d);
+  color:#fff;
+  text-align:center;
+  padding:80px 20px;
+}
+header img{
+  width:150px;border-radius:50%;
+  border:4px solid #38bdf8;
+}
+header h1{margin:15px 0;font-size:36px;}
+.typing{color:#38bdf8;margin-top:10px}
+
+/* Section */
+section{padding:80px 40px;}
+.section-title{
+  text-align:center;
+  color:#38bdf8;
+  font-size:36px;
+  margin-bottom:60px;
+}
+
+/* About */
+#about p{
+  max-width:900px;
+  margin:auto;
+  font-size:17px;
+  color:#334155;
+  text-align:center;
+}
+
+/* EDUCATION */
+.timeline{
+    width:70%;
+    margin:auto;
+}
+.time-box{
+    background:rgba(255,255,255,.06);
+    padding:20px;
+    margin:15px 0;
+    border-left:4px solid #38bdf8;
+    border-radius:10px;
+}
+
+/* CONTACT */
+#contact{text-align:center;}
+input,textarea{
+    width:60%;
+    padding:12px;
+    margin:10px;
+    border:none;
+    border-radius:8px;
+    outline:none;
+}
+
+/* What I Do */
+.services{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:30px;
+}
+.service{
+  background:#1e293b;
+  color:#fff;
+  padding:40px;
+  border-radius:20px;
+  text-align:center;
+  transition:0.4s;
+}
+.service:hover{transform:translateY(-12px);}
+.service i{font-size:40px;color:#38bdf8}
+.service h3{margin:15px 0}
+
+/* Projects */
+.projects-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+  gap:35px;
+}
+.project{
+  background:#1e293b;
+  border-radius:20px;
+  overflow:hidden;
+  transition:.4s;
+}
+.project:hover{transform:translateY(-12px)}
+.project img{
+  width:100%;height:200px;object-fit:cover;
+}
+.project-content{padding:25px;color:#fff}
+.project-content p{color:#cbd5e1;font-size:15px}
+.project-content a{
+  display:inline-block;
+  margin-top:15px;
+  padding:8px 20px;
+  border:1px solid #38bdf8;
+  border-radius:20px;
+  color:#38bdf8;
+  text-decoration:none;
+}
+.project-content a:hover{
+  background:#38bdf8;color:#020617;
+}
+
+/* Footer */
+footer{
+  background:linear-gradient(135deg,#020f26,#04152d);
+  color:#fff;
+  padding:60px 40px 30px;
+}
+.footer-boxes{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:40px;
+}
+footer h3{margin-bottom:15px}
+footer p,a{color:#ddd;font-size:15px}
+.footer-social{text-align:center;margin-top:30px}
+.footer-social a{
+  margin:0 10px;
+  font-size:20px;
+  border:1px solid #fff;
+  padding:10px;
+  border-radius:50%;
+}
+.footer-copy{text-align:center;margin-top:20px;color:#aaa;font-size:14px}
+
+/* Animation */
+.reveal{opacity:0;transform:translateY(40px);transition:.6s}
+.reveal.show{opacity:1;transform:none}
+
+@media(max-width:768px){
+  nav{flex-direction:column;align-items:center}
+}
+/* ================= RESPONSIVE ================= */
+@media (max-width: 1024px) {
+  section { padding: 60px 30px; }
+}
+
+@media (max-width: 768px) {
+  nav {
+    flex-direction: column;
+    padding: 15px;
+  }
+  nav ul {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  header h1 { font-size: 28px; }
+  .section-title { font-size: 28px; }
+  input, textarea { width: 90%; }
+}
+
+@media (max-width: 480px) {
+  header img { width: 120px; }
+  header h1 { font-size: 24px; }
+}
+
+/* ================= EDUCATION DESIGN ================= */
+
+#education {
+  background: #0f172a;
+  color: #fff;
+  padding: 80px 40px;
+  
+}
+.timeline {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px,1fr));
+  gap: 25px;
+}
+.time-box {
+  background: #1e293b;
+  border-left: none;
+  border-radius: 20px;
+  box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+  transition: .4s;
+}
+.time-box:hover {
+  transform: translateY(-10px);
+}
+.time-box h3 { color: #38bdf8; }
+
+/* ================= CONTACT ================= */
+#contact {
+  background: #f1f5f9;
+}
+#contact h2 {
+  color: #020617;
+  margin-bottom: 25px;
+}
+form button {
+  background: #38bdf8;
+  border: none;
+  padding: 12px 30px;
+  border-radius: 30px;
+  cursor: pointer;
+  font-size: 16px;
+}
+form button:hover {
+  background: #0ea5e9;
+}
+
+/* ================= FOOTER FIX ================= */
+.footer-video {
+  position: relative;
+}
+.footer-boxes,
+.footer-social,
+.footer-copy {
+  position: relative;
+  z-index: 2;
+}
+.footer-social a {
+  transition: .4s;
+}
+.footer-social a:hover {
+  background: #38bdf8;
+  color: #020617;
+  transform: scale(1.2);
+}
+
+/* ================= BACK TO TOP ================= */
+.top-btn {
+  position: fixed;
+  bottom: 30px;
+  right: 25px;
+  padding: 12px 15px;
+  border-radius: 50%;
+  border: none;
+  background: #38bdf8;
+  color: #020617;
+  cursor: pointer;
+  display: none;
+  font-size: 18px;
+}
+.top-btn:hover {
+  background: #0ea5e9;
+}
+/* ================= FOOTER VIDEO BACKGROUND ================= */
+.footer-video {
+  position: relative;
+  overflow: hidden;
+}
+.footer-video .footer-bg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  opacity: 0.7;
+}
+
+</style>
+</head>
+
+
+<body>
+  <!-- 🔹 Sliding Text Banner -->
+  <div class="slide-banner">
+    <p>Welcome to My Portfolio — Passionate about Java • Web Development • Creative Projects ✨</p>
+  </div>
+
+<nav>
+  <h2>Sibaprasad</h2>
+  <ul>
+    <li><a href="#about">About</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#services">What I Do</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#contact">Contact</a></li>
+
+  </ul>
+</nav>
+
+<header>
+  <img src="sibaprasad/sibaprasad.jpg" alt="">
+  <h1>Sibaprasad Nayak</h1>
+  <p class="typing"></p>
+</header>
+
+<section id="about" class="reveal">
+  <h2 class="section-title">About Me</h2>
+  <p>
+    I am a B.Tech student with hands-on experience in Java, Python,MySql,React,Bootstrap, HTML, CSS and
+    JavaScript. I enjoy building responsive websites and real-world projects.
+    I love building responsive websites with smooth animations and real-world projects.
+  </p>
+</section>
+<!-- EDUCATION -->
+<section id="education">
+    <h2 style="text-align: center; margin-bottom: 60px;">Education</h2>
+    <div class="timeline">
+        <div class="time-box">
+            <h3>B.Tech (Computer Science)</h3>
+            <p>BIET Collage,under Bput univercity</p>
+            <p>2022 – 2026</p>
+        </div>
+
+        <div class="time-box">
+            <h3>12th (CHSE)</h3>
+            <p> IGM & Scince and Technology,Bhadrak</p>
+            <p>2020 – 2022</p>
+        </div>
+
+        <div class="time-box">
+            <h3>10th (HSC)</h3>
+            <p>DBJ High School</p>
+            <p>2020</p>
+        </div>
+    </div>
+</section>
+
+
+<section id="services" class="reveal">
+  <h2 class="section-title">What I Do</h2>
+  <div class="services">
+    <div class="service"><i>&lt;/&gt;</i><h3>Frontend Development</h3><p>HTML, CSS, JS, Bootstrap,React</p></div>
+    <div class="service"><i>🗄️</i><h3>Backend Development</h3><p>Python,Java, Node basics & MySQL</p></div>
+    <div class="service"><i>💻</i><h3>Web Design</h3><p>Clean modern UI / UX</p></div>
+    <div class="service"><i>{ }</i><h3>Creative Coding</h3><p>Animations & effects</p></div>
+    <div class="service"><i>💡</i><h3>Creative Ideas</h3><p>Problem solving mindset</p></div>
+  </div>
+</section>
+<section id="projects" class="reveal">
+<h2 class="section-title">Featured Projects</h2>
+<div class="projects-grid">
+
+<div class="project">
+<img src="All_img/Portfolio Website.webp">
+<div class="project-content">
+<h3>Portfolio Website</h3>
+<p>Personal responsive website</p>
+<a href="index.html" target="_blank">Visit</a>
+</div>
+</div>
+
+<div class="project">
+<img src="All_img/Responsive Web Design.webp">
+<div class="project-content">
+<h3>Responsive Web Design</h3>
+<p>Bootstrap & media queries</p>
+<a href="sample student project/index.html" target="_blank">Visit</a>
+</div>
+</div>
+
+<div class="project">
+<img src="All_img/E-commerce Website.webp">
+<div class="project-content">
+<h3>E-commerce Website</h3>
+<p>Online shopping UI</p>
+<a href="SHOPPING APP/index.html" target="_blank">Visit</a>
+</div>
+</div>
+
+<div class="project">
+<img src="All_img/Calculator.webp">
+<div class="project-content">
+<h3>Calculator</h3>
+<p>JavaScript calculator</p>
+<a href="Callculator/Calculator.html" target="_blank">View</a>
+</div>
+</div>
+
+<div class="project">
+<img src="All_img/Mayfair Hotel Website.webp">
+<div class="project-content">
+<h3>Mayfair Hotel Website</h3>
+<p>Hotel booking UI</p>
+<a href="MAYFAIR/index.html" target="_blank">Visit</a>
+</div>
+</div>
+
+<div class="project">
+<img src="All_img/car.webp">
+<div class="project-content">
+<h3>Car Website</h3>
+<p>Car showcase website</p>
+<a href="car website/carwebsite.html" target="_blank">Visit</a>
+</div>
+</div>
+
+<div class="project">
+<img src="All_img/Bat Ball Game.webp">
+<div class="project-content">
+<h3>Bat Ball Game</h3>
+<p>JavaScript cricket game</p>
+<a href="Bat and Ball Game/c1.html" target="_blank">Play</a>
+</div>
+</div>
+
+<div class="project">
+<img src="All_img/Online Software Course Management.webp">
+<div class="project-content">
+<h3>Online Software Course Management</h3>
+<p>B.Tech minor project</p>
+<a href="Online Softweare Course/frontend/index.html" target="_blank">View</a>
+</div>
+</div>
+
+</div>
+</section>
+
+<section id="contact">
+    <h2>Contact Me</h2>
+    <form onsubmit="send(event)">
+        <input type="text" placeholder="Your Name" required>
+        <input type="email" placeholder="Email" required>
+        <textarea placeholder="Message"></textarea><br>
+        <button class="btn">Send Message</button>
+    </form>
+</section>
+
+<footer id="contact" class="footer-video">
+    <div class="overlay"></div>
+  <!-- Replace `footer-bg.mp4` with your own video file -->
+    <video autoplay muted loop playsinline class="footer-bg">
+      <source src="sibaprasad/foter.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+<div class="footer-boxes">
+<div><h3>About</h3><p>Web Developer passionate about coding and design.</p></div>
+<div><h3>Quick Links</h3><p>Home | About | Projects | Contact</p></div>
+<div><h3>Contact</h3><p>Email: sibaprasadnayak02@gmail.com<br>Phone: 7377072705</p></div>
+</div>
+<div class="footer-social">
+  <a href="https://github.com/siba-02"><i class="fab fa-github"></i></a>
+  <a href="https://www.linkedin.com/in/sibaprasad-nayak-4452a121b/"><i class="fab fa-linkedin-in"></i></a>
+  <a href="#"><i class="fab fa-instagram"></i></a>
+  <a href="#"><i class="fab fa-whatsapp"></i></a>
+</div>
+
+<p class="footer-copy">© 2025 Sibaprasad Nayak</p>
+</footer>
+<script>
+/* Typing Effect */
+const text = "Java Full Stack Developer | Web Developer | Tech Learner | Problem Solver | Creative Coder | Passionate Programmer";
+let i = 0;
+const typing = document.querySelector(".typing");
+
+function type() {
+  if (i < text.length) {
+    typing.textContent += text.charAt(i++);
+    setTimeout(type, 80);
+  }
+}
+type();
+
+/* Scroll Reveal */
+const reveals = document.querySelectorAll(".reveal");
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => e.isIntersecting && e.target.classList.add("show"));
+},{threshold:0.2});
+reveals.forEach(r => observer.observe(r));
+
+/* Back To Top */
+const topBtn = document.createElement("button");
+topBtn.className = "top-btn";
+topBtn.innerHTML = "⬆";
+document.body.appendChild(topBtn);
+
+window.addEventListener("scroll",()=>{
+  topBtn.style.display = scrollY > 300 ? "block":"none";
+});
+
+topBtn.onclick = ()=> window.scrollTo({top:0,behavior:"smooth"});
+</script>
+
+</body>
+</html>

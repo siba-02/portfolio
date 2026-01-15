@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Student Registration Form</title>
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: "Poppins", sans-serif;
+      color: #fff;
+      overflow-x: hidden;
+      background: linear-gradient(135deg, #001f3f, #003f73);
+      min-height: 100vh;
+      position: relative;
+    }
+
+    /* ===== Animated Circles ===== */
+    .circle {
+      position: absolute;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(0,255,255,0.3), transparent);
+      animation: float 15s ease-in-out infinite;
+      z-index: 0;
+    }
+    .circle:nth-child(1) { width: 180px; height: 180px; top: 10%; left: 10%; }
+    .circle:nth-child(2) { width: 250px; height: 250px; top: 40%; right: 5%; animation-delay: 4s; }
+    .circle:nth-child(3) { width: 200px; height: 200px; bottom: 10%; left: 20%; animation-delay: 8s; }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px) scale(1); opacity: 0.6; }
+      50% { transform: translateY(-40px) scale(1.1); opacity: 1; }
+    }
+
+    /* ===== Navbar ===== */
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(0, 64, 128, 0.8);
+      backdrop-filter: blur(10px);
+      padding: 15px 60px;
+      box-shadow: 0 5px 25px rgba(0, 0, 0, 0.3);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    nav h1 {
+      margin: 0;
+      font-size: 26px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: #fff;
+      text-shadow: 1px 1px 5px rgba(0, 255, 255, 0.5);
+    }
+
+    nav .links {
+      display: flex;
+      gap: 25px;
+    }
+
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 16px;
+      position: relative;
+      padding: 5px 0;
+      transition: 0.4s;
+    }
+
+    nav a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -3px;
+      width: 0%;
+      height: 3px;
+      background: cyan;
+      border-radius: 3px;
+      transition: width 0.3s;
+      box-shadow: 0 0 10px cyan;
+    }
+
+    nav a:hover::after { width: 100%; }
+    nav a:hover { color: cyan; text-shadow: 0 0 10px cyan; }
+
+    /* ===== Form ===== */
+    form {
+      width: 380px;
+      margin: 120px auto;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(15px);
+      padding: 35px 40px;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0, 255, 255, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      text-align: center;
+      z-index: 2;
+    }
+
+    form h2 {
+      color: cyan;
+      margin-bottom: 25px;
+      font-weight: 700;
+      text-shadow: 0 0 8px cyan;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: none;
+      border-radius: 8px;
+      font-size: 15px;
+      outline: none;
+      color: #333;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background: linear-gradient(145deg, cyan, #0078d7);
+      color: #fff;
+      font-size: 16px;
+      font-weight: 600;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(0, 255, 255, 0.3);
+    }
+
+    button:hover {
+      background: linear-gradient(145deg, #00e6e6, #004080);
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: 0 8px 25px rgba(0, 255, 255, 0.5);
+    }
+
+    footer {
+      text-align: center;
+      color: #eee;
+      padding: 20px 0;
+      margin-top: 80px;
+      background: rgba(0, 32, 64, 0.8);
+      font-size: 14px;
+      letter-spacing: 0.5px;
+      backdrop-filter: blur(10px);
+    }
+
+    @media (max-width: 600px) {
+      nav { flex-direction: column; gap: 10px; padding: 20px; }
+      nav .links { flex-direction: column; gap: 10px; }
+      form { width: 85%; margin: 80px auto; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Floating background -->
+  <div class="circle"></div><div class="circle"></div><div class="circle"></div>
+
+  <!-- Navbar -->
+  <nav>
+    <h1>Student Registration</h1>
+    <div class="links">
+      <a href="home.html" target="_blank">Home</a>
+      <a href="about.html" target="_blank">About</a>
+      <a href="courses.html" target="_blank">Courses</a>
+      <a href="contact.html" target="_blank">Contact</a>
+    </div>
+  </nav>
+
+  <!-- Registration Form -->
+  <form action="insert.php" method="post">
+    <h2>Register Now</h2>
+    <input type="text" name="name" placeholder="Enter your name" required>
+    <input type="email" name="email" placeholder="Enter your email" required>
+    <input type="text" name="course" placeholder="Enter your course" required>
+    <button type="submit">Register</button>
+  </form>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 Student Registration System. Designed with 💙</p>
+  </footer>
+</body>
+</html>

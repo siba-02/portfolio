@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bharat Bhraman | Luxury India & Odisha Tour</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <style>
+        /* NEW: Vibrant Saffron, Peacock Blue, and Rani Pink Palette */
+        :root {
+            /* Vibrant Multi-Color Palette */
+            --primary-color: #FF9933; /* Bright Saffron Orange (Main Accent, Buttons) */
+            --secondary-color: #0047AB; /* Deep Peacock Blue (Dark Backgrounds, Headings) */
+            --accent-color: #E91E63; /* Magenta/Rani Pink (Highlights, Hover effects) */
+            --contrast-accent: #FFD700; /* Bright Gold (Secondary Highlight) */
+            --text-dark: #222;
+            --text-light: #fff;
+            --background-light: #FAFAFA; /* Clean Off-White */
+            --card-bg: #ffffff;
+            --shadow-deep: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            background-color: var(--background-light);
+            color: var(--text-dark);
+            scroll-behavior: smooth;
+        }
+
+        a {
+            text-decoration: none;
+            color: var(--primary-color);
+        }
+        
+        /* --- Utility Classes --- */
+        .container {
+            width: 90%;
+            max-width: 1280px;
+            margin: auto;
+        }
+        
+        /* --- Navigation Bar --- */
+        nav {
+            background: var(--secondary-color); /* Deep Peacock Blue Nav */
+            color: var(--text-light);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 50px;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.3);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 34px;
+            font-weight: 900;
+            color: var(--primary-color); /* Saffron Logo */
+            letter-spacing: 1px;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+        }
+
+        nav ul li a {
+            color: var(--text-light);
+            padding: 8px 20px;
+            margin: 0 5px;
+            transition: color 0.3s, background-color 0.3s;
+            border-radius: 50px; 
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 15px;
+        }
+
+        nav ul li a:hover {
+            color: var(--secondary-color);
+            background-color: var(--accent-color); /* Rani Pink Hover */
+            box-shadow: 0 2px 10px rgba(233, 30, 99, 0.5);
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            height: 95vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: var(--text-light);
+            position: relative;
+            transition: background-image 1.5s ease-in-out;
+            background-size: cover;
+            background-position: center center;
+            background-repeat: no-repeat;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.65);
+            backdrop-filter: blur(1.5px);
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            padding: 20px;
+            max-width: 900px;
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 80px;
+            margin-bottom: 20px;
+            text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.9);
+            line-height: 1.1;
+            font-weight: 900;
+        }
+
+        .hero p {
+            font-size: 26px;
+            margin-bottom: 50px;
+            font-weight: 300;
+            letter-spacing: 0.5px;
+        }
+
+        .btn {
+            display: inline-block;
+            background: var(--primary-color); /* Saffron Button */
+            color: var(--secondary-color); /* Peacock Blue Text */
+            padding: 16px 40px;
+            border-radius: 50px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            box-shadow: 0 6px 20px rgba(255, 153, 51, 0.4);
+            transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
+            font-size: 17px;
+        }
+
+        .btn:hover {
+            background-color: #cc7a29; /* Darker Saffron */
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px rgba(255, 153, 51, 0.55);
+        }
+        
+        /* --- Section Title Style --- */
+        .destinations, .usp-section, .social-section, .testimonials {
+            padding: 100px 0;
+            text-align: center;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 52px;
+            margin-bottom: 10px;
+            color: var(--secondary-color); /* Peacock Blue Title */
+            position: relative;
+            font-weight: 900;
+        }
+        
+        .section-subtitle {
+            font-size: 20px;
+            color: #777;
+            margin-bottom: 60px;
+            font-style: italic;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 5px;
+            background: var(--primary-color); /* Saffron Line */
+            margin: 15px auto 0;
+            border-radius: 3px;
+        }
+        
+        .usp-section {
+             background-color: var(--secondary-color); /* Peacock Blue Background */
+        }
+        
+        .usp-section .section-title, .social-section .section-title, .video-section .section-title {
+            color: var(--text-light);
+        }
+        
+        .destinations#india {
+            background-color: #f0f0f0; /* Slightly darker background */
+        }
+
+        /* --- Destination Card Overhaul --- */
+        .card-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 40px;
+        }
+        
+        .card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow-deep);
+            width: 380px; 
+            transition: transform 0.5s ease, box-shadow 0.5s ease;
+            position: relative;
+            border: 1px solid #eee;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* NEW: Details Box Overlay */
+        .details-box {
+            background-color: var(--primary-color); /* Saffron Box Top */
+            color: var(--text-light);
+            padding: 15px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top-left-radius: 18px;
+            border-top-right-radius: 18px;
+        }
+        
+        .details-box-item i {
+            font-size: 18px;
+            color: var(--text-light); /* White Icons */
+        }
+
+        .card-content {
+            padding: 25px;
+            text-align: left;
+        }
+        
+        .card-content h3 {
+            font-family: 'Playfair Display', serif;
+            color: var(--secondary-color); /* Peacock Blue Heading */
+            margin-bottom: 15px;
+            font-size: 32px;
+            font-weight: 900;
+            border-bottom: 2px solid var(--accent-color); /* Rani Pink underline */
+            padding-bottom: 10px;
+        }
+        
+        .price-box {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .card-price {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--accent-color); /* Rani Pink Price */
+        }
+        
+        .card-price span {
+            display: block;
+            font-size: 12px;
+            font-family: 'Poppins', sans-serif;
+            color: #777;
+            font-weight: 400;
+        }
+
+        .card-btn {
+            padding: 10px 20px; 
+            font-size: 15px;
+            background-color: var(--secondary-color); /* Peacock Blue Button */
+            color: var(--text-light);
+            box-shadow: none;
+        }
+
+        .card-btn:hover {
+            background-color: #003788;
+            transform: none;
+        }
+        
+        /* --- Testimonial Section --- */
+        .testimonials {
+            /* Saffron/Pink Gradient Background */
+            background: linear-gradient(135deg, #fff2e0, #fae0e5); 
+        }
+
+        .testimonial-container {
+            display: flex;
+            justify-content: space-between;
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .testimonial-card {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            flex: 1;
+            text-align: center;
+            border-top: 5px solid var(--accent-color); /* Rani Pink Border */
+        }
+        
+        .testimonial-card i.fa-quote-left {
+            font-size: 30px;
+            color: var(--primary-color); /* Saffron Quote Icon */
+            margin-bottom: 15px;
+        }
+
+        .testimonial-card p {
+            font-style: italic;
+            margin-bottom: 15px;
+            color: #444;
+        }
+        
+        /* --- Social Section Styling --- */
+        .social-section {
+            background: url('https://via.placeholder.com/1600x500/0047AB/ffffff?text=Social+Media+Background') no-repeat center center/cover;
+            position: relative;
+            padding: 80px 0;
+            color: var(--text-light);
+        }
+        .social-section h1, .social-section p {
+            color: black;
+        }
+        
+        .social-links-container {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .social-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-weight: 600;
+            color: var(--text-light);
+            transition: transform 0.3s, opacity 0.3s;
+        }
+        
+        .social-btn i {
+            font-size: 20px;
+        }
+        
+        .social-btn.facebook {
+            background-color: #3b5998;
+        }
+        
+        .social-btn.instagram {
+            /* Multi-color Instagram Gradient */
+            background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #4f5bd5 90%);
+        }
+        
+        .social-btn:hover {
+            transform: scale(1.05);
+            opacity: 0.9;
+        }
+
+        /* --- Booking Section --- */
+        .video-section {
+            position: relative;
+            padding: 100px 0;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .video-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .video-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.75); /* Darker Overlay */
+            z-index: 0;
+        }
+        
+        .video-section video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .video-section .container {
+            position: relative;
+            z-index: 1;
+        }
+
+        .booking-form {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 10px;
+            max-width: 600px;
+            margin: 40px auto 0;
+            box-shadow: var(--shadow-deep);
+            border-left: 5px solid var(--accent-color); /* Rani Pink Accent */
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--primary-color); /* Saffron Form Label */
+        }
+
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            border-color: var(--accent-color); /* Rani Pink focus border */
+            outline: none;
+        }
+        
+        .booking-form button.btn {
+            margin-top: 10px;
+            width: 100%;
+            background-color: var(--primary-color) !important; /* Saffron Submit Button */
+            color: var(--text-light) !important;
+            box-shadow: 0 4px 15px rgba(255, 153, 51, 0.4);
+        }
+        
+        .booking-form button.btn:hover {
+            background-color: #cc7a29 !important;
+        }
+        
+        /* --- Footer --- */
+        footer {
+            background: var(--secondary-color); /* Peacock Blue Footer */
+            color: var(--text-light);
+            padding: 40px 0;
+            text-align: center;
+            font-size: 14px;
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            padding-bottom: 15px;
+        }
+        
+        .footer-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            font-weight: 900;
+            color: var(--primary-color); /* Saffron Footer Logo */
+        }
+        
+        .footer-links a {
+            color: var(--contrast-accent); /* Gold Links */
+            margin: 0 10px;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-color); /* Rani Pink Hover */
+        }
+        
+        footer p {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">Bharat Bhraman 👑</div>
+        <ul>
+            <li><a href="#home"><i class="fas fa-mountain"></i> Home</a></li>
+            <li><a href="#odisha"><i class="fas fa-hand-holding-heart"></i> Odisha Tours</a></li>
+            <li><a href="#india"><i class="fas fa-gopuram"></i> India</a></li>
+            <li><a href="#testimonials"><i class="fas fa-star"></i> Reviews</a></li>
+            <li><a href="#booking"><i class="fas fa-paper-plane"></i> Inquiry</a></li>
+        </ul>
+    </nav>
+
+    <header class="hero" id="home">
+        <div class="hero-content">
+            <h1>The Grandeur of India Awaits.</h1>
+            <p>Curated luxury and cultural immersion—explore the ancient soul of Odisha and the majestic diversity of India.</p>
+            <a href="#odisha" class="btn">Discover Our Premier Packages</a>
+        </div>
+    </header>
+    
+    <section class="usp-section">
+        <div class="container">
+            <h2 class="section-title">Your Trusted Partner in Discovery</h2>
+        </div>
+    </section>
+
+    <section class="destinations" id="odisha">
+        <div class="container">
+            <h2 class="section-title">Odisha: The Land of Kalinga</h2>
+            <p class="section-subtitle">A journey through ancient temples, pristine lagoons, and unique natural beauty.</p>
+            <div class="card-container">
+                
+                <div class="card">
+                    <div class="details-box">
+                        <span class="details-box-item"><i class="fas fa-gopuram"></i> Heritage & Pilgrimage</span>
+                        <span class="details-box-item"><i class="fas fa-calendar-alt"></i> 5 Days / 4 Nights</span>
+                    </div>
+                    <img src="https://via.placeholder.com/380x220/FF9933/ffffff?text=Puri+Jagannath+Temple" alt="Puri Temple">
+                    <div class="card-content">
+                        <h3>Puri & Konark Circuit</h3>
+                        <p>Explore the sacred **Jagannath Temple** and the architectural poetry of the UNESCO World Heritage **Konark Sun Temple**. Includes a relaxing sunset at the golden Puri Beach.</p>
+                        <div class="price-box">
+                            <a href="#booking" class="btn card-btn">Book Tour</a>
+                            <span class="card-price">₹14,999 <span>/ person (All-Inclusive)</span></span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="details-box">
+                        <span class="details-box-item"><i class="fas fa-landmark"></i> Historical & Cultural</span>
+                        <span class="details-box-item"><i class="fas fa-calendar-alt"></i> 3 Days / 2 Nights</span>
+                    </div>
+                    <img src="https://via.placeholder.com/380x220/0047AB/ffffff?text=Lingaraja+Temple+Bhubaneswar" alt="Lingaraja Temple">
+                    <div class="card-content">
+                        <h3>Bhubaneswar City Break</h3>
+                        <p>Discover the 'Temple City' capital, home to the magnificent 10th-century **Lingaraja Temple** and the ancient Jain rock-cut **Udayagiri & Khandagiri Caves**.</p>
+                        <div class="price-box">
+                            <a href="#booking" class="btn card-btn">Book Tour</a>
+                            <span class="card-price">₹8,999 <span>/ person (City Break)</span></span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="details-box">
+                        <span class="details-box-item"><i class="fas fa-tree"></i> Nature & Relaxation</span>
+                        <span class="details-box-item"><i class="fas fa-calendar-alt"></i> 6 Days / 5 Nights</span>
+                    </div>
+                    <img src="https://via.placeholder.com/380x220/E91E63/ffffff?text=Chilika+Dolphin+Spotting" alt="Chilika Lake">
+                    <div class="card-content">
+                        <h3>Chilika & Daringbadi</h3>
+                        <p>Witness the cool misty climate of **Daringbadi (Kashmir of Odisha)**, then embark on a boat safari on Asia's largest lagoon, **Chilika**, to spot Irrawaddy dolphins.</p>
+                        <div class="price-box">
+                            <a href="#booking" class="btn card-btn">Book Tour</a>
+                            <span class="card-price">₹18,500 <span>/ person (Nature Retreat)</span></span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="details-box">
+                        <span class="details-box-item"><i class="fas fa-paw"></i> Wildlife & Trekking</span>
+                        <span class="details-box-item"><i class="fas fa-calendar-alt"></i> 4 Days / 3 Nights</span>
+                    </div>
+                    <img src="https://via.placeholder.com/380x220/008080/ffffff?text=Similipal+Tiger+Reserve" alt="Similipal National Park">
+                    <div class="card-content">
+                        <h3>Similipal Reserve</h3>
+                        <p>An exhilarating journey to the heart of Odisha's wilderness. Explore the **Similipal Tiger Reserve**, famous for its waterfalls and diverse flora and fauna.</p>
+                        <div class="price-box">
+                            <a href="#booking" class="btn card-btn">Book Tour</a>
+                            <span class="card-price">₹15,500 <span>/ person (Jungle Safari)</span></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="details-box">
+                        <span class="details-box-item"><i class="fas fa-users"></i> Culture & Anthropology</span>
+                        <span class="details-box-item"><i class="fas fa-calendar-alt"></i> 7 Days / 6 Nights</span>
+                    </div>
+                    <img src="https://via.placeholder.com/380x220/FFD700/0047AB?text=Odisha+Tribal+Village+Art" alt="Odisha Tribal Village">
+                    <div class="card-content">
+                        <h3>Koraput Tribal Trail</h3>
+                        <p>A deep cultural dive into the lives of Odisha's indigenous tribes (like the Bonda and Dongria Kondh). Visit weekly markets and remote villages for an authentic experience.</p>
+                        <div class="price-box">
+                            <a href="#booking" class="btn card-btn">Book Tour</a>
+                            <span class="card-price">₹22,000 <span>/ person (Cultural Immersion)</span></span>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </section>
+
+    <section class="destinations" id="india">
+        <div class="container">
+            <h2 class="section-title">The Wonders of Incredible India</h2>
+            <p class="section-subtitle">Experience the breathtaking diversity of the subcontinent, from deserts to mountains and sacred rivers.</p>
+            <div class="card-container">
+                
+                <div class="card">
+                    <div class="details-box">
+                        <span class="details-box-item"><i class="fas fa-hand-sparkles"></i> Imperial & Iconic</span>
+                        <span class="details-box-item"><i class="fas fa-calendar-alt"></i> 7 Days / 6 Nights</span>
+                    </div>
+                    <img src="https://via.placeholder.com/380x220/FF9933/0047AB?text=Taj+Mahal+Agra" alt="Taj Mahal">
+                    <div class="card-content">
+                        <h3>The Golden Triangle</h3>
+                        <p>The ultimate tour covering the iconic **Taj Mahal**, Delhi's historical Red Fort, and the majestic palaces and forts of Jaipur's Pink City.</p>
+                        <div class="price-box">
+                            <a href="#booking" class="btn card-btn">Book Tour</a>
+                            <span class="card-price">₹29,000 <span>/ person (Luxury Plan)</span></span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="details-box">
+                        <span class="details-box-item"><i class="fas fa-ship"></i> Relaxing & Scenic</span>
+                        <span class="details-box-item"><i class="fas fa-calendar-alt"></i> 8 Days / 7 Nights</span>
+                    </div>
+                    <img src="https://via.placeholder.com/380x220/0047AB/FF9933?text=Kerala+Houseboat+Munnar" alt="Kerala Backwaters">
+                    <div class="card-content">
+                        <h3>Kerala Backwaters & Bliss</h3>
+                        <p>Enjoy a tranquil overnight stay on a traditional houseboat in **Alleppey's backwaters** and explore the rolling tea plantations and spice gardens of misty **Munnar**.</p>
+                        <div class="price-box">
+                            <a href="#booking" class="btn card-btn">Book Tour</a>
+                            <span class="card-price">₹32,500 <span>/ person (God's Own Country)</span></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="details-box">
+                        <span class="details-box-item"><i class="fas fa-tiger"></i> Wildlife Safari</span>
+                        <span class="details-box-item"><i class="fas fa-calendar-alt"></i> 4 Days / 3 Nights</span>
+                    </div>
+                    <img src="https://via.placeholder.com/380x220/4CAF50/E91E63?text=Ranthambore+Tiger+Safari" alt="Ranthambore Tiger">
+                    <div class="card-content">
+                        <h3>Ranthambore Tiger Safari</h3>
+                        <p>An unparalleled wildlife adventure to one of India's best national parks. Go on thrilling jeep safaris to spot the majestic **Bengal Tiger** in its natural habitat.</p>
+                        <div class="price-box">
+                            <a href="#booking" class="btn card-btn">Book Tour</a>
+                            <span class="card-price">₹25,000 <span>/ person (Luxury Safari)</span></span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="details-box">
+                        <span class="details-box-item"><i class="fas fa-biking"></i> High-Altitude Adventure</span>
+                        <span class="details-box-item"><i class="fas fa-calendar-alt"></i> 9 Days / 8 Nights</span>
+                    </div>
+                    <img src="https://via.placeholder.com/380x220/E91E63/0047AB?text=Leh+Ladakh+Pangong+Lake" alt="Ladakh Mountains">
+                    <div class="card-content">
+                        <h3>Leh-Ladakh Road Trip</h3>
+                        <p>An epic tour through the Himalayas. Visit the stunning blue **Pangong Tso Lake** and the surreal landscapes of the Nubra Valley, crossing high motorable passes.</p>
+                        <div class="price-box">
+                            <a href="#booking" class="btn card-btn">Book Tour</a>
+                            <span class="card-price">₹45,000 <span>/ person (Bike/Jeep Tour)</span></span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="details-box">
+                        <span class="details-box-item"><i class="fas fa-om"></i> Sacred & Spiritual</span>
+                        <span class="details-box-item"><i class="fas fa-calendar-alt"></i> 4 Days / 3 Nights</span>
+                    </div>
+                    <img src="https://via.placeholder.com/380x220/FFD700/0047AB?text=Varanasi+Ghats" alt="Varanasi Ghats">
+                    <div class="card-content">
+                        <h3>Varanasi & Sarnath</h3>
+                        <p>Witness the timeless spiritual heart of India. Experience the evening *Ganga Aarti* ceremony and explore the tranquil Buddhist site of **Sarnath**.</p>
+                        <div class="price-box">
+                            <a href="#booking" class="btn card-btn">Book Tour</a>
+                            <span class="card-price">₹16,500 <span>/ person (Spiritual Journey)</span></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="testimonials" id="testimonials">
+        <div class="container">
+            <h2 class="section-title">Voices of Happy Travellers</h2>
+            <p class="section-subtitle">Real feedback from clients who experienced the magic of India with us.</p>
+            <div class="testimonial-container">
+                <div class="testimonial-card">
+                    <i class="fas fa-quote-left"></i>
+                    <p>The Odisha tour was flawless! The guide was knowledgeable, and the choice of hotels was truly luxurious. Konark at sunset was an unforgettable sight.</p>
+                    <span>— Priya S., Chennai</span>
+                </div>
+                <div class="testimonial-card">
+                    <i class="fas fa-quote-left"></i>
+                    <p>Our Golden Triangle trip was perfectly managed. Everything, from the logistics in Delhi to the early morning Taj Mahal visit, felt personal and exclusive.</p>
+                    <span>— Michael and Jane B., London</span>
+                </div>
+                <div class="testimonial-card">
+                    <i class="fas fa-quote-left"></i>
+                    <p>The Leh-Ladakh road trip was the adventure of a lifetime. The team handled all the permits and high-altitude planning, allowing us to just enjoy the views!</p>
+                    <span>— Rohan K., Mumbai</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="social-section" id="social">
+        <div class="container">
+            <h2 class="section-title" style="color: #222;">Connect with Us and be Inspired!</h2>
+            <p class="section-subtitle" style="color:black; font-weight: 300;">Follow us **@BharatBhramanOfficial** for daily travel inspiration, exclusive behind-the-scenes content, and flash deals!</p>
+            <div class="social-links-container">
+                <a href="#" class="social-btn facebook" aria-label="Facebook Page">
+                    <i class="fab fa-facebook-f"></i> 
+                    Find Us on Facebook
+                </a>
+                <a href="#" class="social-btn instagram" aria-label="Instagram Page">
+                    <i class="fab fa-instagram"></i> 
+                    Follow on Instagram
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section class="video-section" id="booking">
+        <div class="video-background">
+            <video autoplay muted loop playsinline>
+                <source src="footer.mp4" type="video/mp4"> 
+                Your browser does not support the video tag.
+            </video>
+        </div>
+        <div class="container">
+            <h2 class="section-title">Ready to Plan Your Grand Journey?</h2>
+            <p class="section-subtitle" style="color: var(--text-light);">Fill in your details below. Our luxury travel experts will craft a personalized itinerary just for you.</p>
+            <div class="booking-form">
+                <form action="#" method="POST">
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" name="name" placeholder="Your Name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" placeholder="your.email@example.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="destination">Preferred Destination / Tour Package</label>
+                        <select id="destination" name="destination" required>
+                            <option value="">-- Select a Destination --</option>
+                            <option value="odisha-puri-konark">Odisha: Puri & Konark Circuit</option>
+                            <option value="odisha-chilika-daringbadi">Odisha: Chilika & Daringbadi</option>
+                            <option value="odisha-koraput-tribal">Odisha: Koraput Tribal Trail (NEW)</option>
+                            <option value="india-golden-triangle">India: The Golden Triangle</option>
+                            <option value="india-kerala-bliss">India: Kerala Backwaters & Bliss</option>
+                            <option value="india-ranthambore">India: Ranthambore Tiger Safari (NEW)</option>
+                            <option value="india-leh-ladakh">India: Leh-Ladakh Road Trip</option>
+                            <option value="india-varanasi-sarnath">India: Varanasi & Sarnath</option>
+                            <option value="custom">Custom Itinerary</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Your Message / Special Requests</label>
+                        <textarea id="message" name="message" rows="4" placeholder="e.g., Number of travelers, preferred travel dates, etc."></textarea>
+                    </div>
+                    <button type="submit" class="btn">Send Inquiry <i class="fas fa-paper-plane"></i></button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">Bharat Bhraman</div>
+                <div class="footer-links">
+                    <a href="#odisha">Tours</a> |
+                    <a href="#testimonials">Reviews</a> |
+                    <a href="#booking">Contact</a>
+                </div>
+            </div>
+            <p>Designed for the spirit of adventure. &copy; 2025 Bharat Bhraman. All rights reserved.</p>
+            <p>Connect with us on social media: **@BharatBhramanOfficial**</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const hero = document.getElementById('home');
+            
+            // Image URLs for the slideshow using the new color scheme's feel
+            const images = [
+                'https://via.placeholder.com/1600x900/FF9933/0047AB?text=Saffron+Sunrise+India', // Saffron
+                'https://via.placeholder.com/1600x900/0047AB/E91E63?text=Peacock+Blue+Palace', // Peacock Blue
+                'https://via.placeholder.com/1600x900/E91E63/FF9933?text=Vibrant+Market+Scene', // Rani Pink
+                'https://via.placeholder.com/1600x900/FFD700/0047AB?text=Gold+Embroidered+Textile' // Gold
+            ];
+            
+            let currentImageIndex = 0;
+            const intervalTime = 5000; 
+
+            function changeHeroBackground() {
+                currentImageIndex = (currentImageIndex + 1) % images.length;
+                const newImageURL = images[currentImageIndex];
+                hero.style.backgroundImage = `url('${newImageURL}')`;
+            }
+
+            hero.style.backgroundImage = `url('${images[currentImageIndex]}')`;
+            setInterval(changeHeroBackground, intervalTime);
+        });
+    </script>
+
+</body>
+</html>
