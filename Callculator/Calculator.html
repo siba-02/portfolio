@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS Calculator</title>
+    <style>
+        body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(135deg, #89f7fe, #66a6ff);
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+#calculator{
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 15px;
+    width: 350px;
+    box-shadow: 0px 10px 30px rgba(0,0,0,0.25);
+}
+
+#display{
+    width: 90%;
+    height: 50px;
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+    padding: 10px;
+    border-radius: 10px;
+    border: 2px solid #555;
+    box-shadow: inset 0px 3px 8px rgba(0,0,0,0.2);
+}
+
+.button-conatiner{
+    display: flex;
+    justify-content: center;
+    margin: 5px 0;
+}
+
+button{
+    width: 80px;
+    height: 60px;
+    margin: 6px;
+    font-size: 1.4rem;
+    border: none;
+    border-radius: 12px;
+    background: #f1f1f1;
+    cursor: pointer;
+    box-shadow: 0px 5px 10px rgba(0,0,0,0.20);
+    transition: transform 0.15s ease, background 0.15s ease;
+}
+
+button:hover{
+    background: #dce7ff;
+    transform: translateY(-4px);
+}
+
+button:active{
+    transform: translateY(2px);
+    box-shadow: 0px 2px 5px rgba(0,0,0,0.25);
+    background: #bcd2ff;
+}
+
+/* Special Style for "C" and "=" buttons */
+button:nth-child(1){
+    background: #ffb3b3;
+}
+
+button:nth-child(1):hover{
+    background: #ff8c8c;
+}
+
+button:nth-child(2n){
+    background: #e9f7ff;
+}
+    </style>
+</head>
+<body>
+    <div id="calculator">
+        <input type="text" id="display" readonly>
+         <div class="button-conatiner">
+            <button onclick="curentdisplay='';
+            document.querySelector('#display').value=curentdisplay;">C</button>
+            <button onclick="curentdisplay=curentdisplay+'1';
+            document.querySelector('#display').value=curentdisplay;">1</button>
+            <button onclick="curentdisplay=curentdisplay+'2';
+            document.querySelector('#display').value=curentdisplay;">2</button>
+         </div>
+
+         <div class="button-conatiner">
+            <button onclick="curentdisplay+='+';
+            document.querySelector('#display').value=curentdisplay;">+</button>
+            <button
+            onclick="curentdisplay=curentdisplay+'3';
+            document.querySelector('#display').value=curentdisplay;">3</button>
+            <button
+            onclick="curentdisplay=curentdisplay+'4';
+            document.querySelector('#display').value=curentdisplay;">4</button>
+         </div>
+
+         <div class="button-conatiner">
+            <button onclick="curentdisplay+='-';
+            document.querySelector('#display').value=curentdisplay;">-</button>
+            <button onclick="curentdisplay+='5';
+            document.querySelector('#display').value=curentdisplay;">5</button>
+            <button onclick="curentdisplay+='6';
+            document.querySelector('#display').value=curentdisplay;">6</button>
+         </div>
+
+         <div class="button-conatiner">
+            <button onclick="curentdisplay+='*';
+            document.querySelector('#display').value=curentdisplay;">*</button>
+            <button onclick="curentdisplay+='7';
+            document.querySelector('#display').value=curentdisplay;">7</button>
+            <button onclick="curentdisplay+='8';
+            document.querySelector('#display').value=curentdisplay;">8</button>
+         </div>
+
+         <div class="button-conatiner">
+            <button onclick="curentdisplay+='/';
+            document.querySelector('#display').value=curentdisplay;">/</button>
+
+
+            <button class="button" onclick="
+            curentdisplay=eval(curentdisplay);
+            document.querySelector('#display').value=curentdisplay;">=</button>
+
+
+            <button onclick="curentdisplay+='9';
+            document.querySelector('#display').value=curentdisplay;">9</button>
+         </div>
+
+         <div class="button-conatiner">
+            <button onclick="curentdisplay+='0';
+            document.querySelector('#display').value=curentdisplay;">0</button>
+            <button onclick="curentdisplay+='.';
+            document.querySelector('#display').value=curentdisplay;">.</button>
+         </div>
+
+    </div>
+    <script>
+        let curentdisplay ='';
+        document.querySelector('#display').value=curentdisplay;
+    </script>
+</body>
+</html>

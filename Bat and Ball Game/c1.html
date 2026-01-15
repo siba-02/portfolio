@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Bat Ball Stump Game</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    *{
+      box-sizing: border-box;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    body{
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, #c3ecff, #f5faff);
+    }
+
+    .game-box{
+      background: white;
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+      text-align: center;
+      width: 420px;
+    }
+
+    h1{
+      margin-bottom: 10px;
+      color: #1e3a8a;
+    }
+
+    .subtitle{
+      font-size: 16px;
+      color: #555;
+      margin-bottom: 30px;
+    }
+
+    .buttons{
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 30px;
+    }
+
+    button{
+      flex: 1;
+      padding: 15px 0;
+      font-size: 18px;
+      border-radius: 12px;
+      border: none;
+      cursor: pointer;
+      background: #2563eb;
+      color: white;
+      transition: all 0.3s ease;
+    }
+
+    button:hover{
+      background: #1e40af;
+      transform: translateY(-3px);
+      box-shadow: 0 6px 15px rgba(37,99,235,0.4);
+    }
+
+    .result{
+      background: #f1f5f9;
+      padding: 20px;
+      border-radius: 12px;
+      font-size: 18px;
+      min-height: 90px;
+    }
+
+    .result p{
+      margin: 6px 0;
+    }
+
+    .win{
+      color: green;
+      font-weight: bold;
+    }
+
+    .lose{
+      color: red;
+      font-weight: bold;
+    }
+
+    .tie{
+      color: #ca8a04;
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="game-box">
+    <h1>Bat Ball Stump</h1>
+    <div class="subtitle">Choose one and test your luck 🏏</div>
+
+    <div class="buttons">
+      <button onclick="playGame('Bat')">Bat</button>
+      <button onclick="playGame('Ball')">Ball</button>
+      <button onclick="playGame('Stump')">Stump</button>
+    </div>
+
+    <div class="result" id="result">
+      <p>Make your move!</p>
+    </div>
+  </div>
+
+  <script>
+    function playGame(userChoice){
+      const choices = ['Bat', 'Ball', 'Stump'];
+      const computerChoice = choices[Math.floor(Math.random() * 3)];
+
+      let result = '';
+      let resultClass = '';
+
+      if(userChoice === computerChoice){
+        result = "It's a Tie 🤝";
+        resultClass = 'tie';
+      }
+      else if(
+        (userChoice === 'Bat' && computerChoice === 'Ball') ||
+        (userChoice === 'Ball' && computerChoice === 'Stump') ||
+        (userChoice === 'Stump' && computerChoice === 'Bat')
+      ){
+        result = "You Won 🎉";
+        resultClass = 'win';
+      }
+      else{
+        result = "Computer Won 😢";
+        resultClass = 'lose';
+      }
+
+      document.getElementById('result').innerHTML = `
+        <p><strong>You:</strong> ${userChoice}</p>
+        <p><strong>Computer:</strong> ${computerChoice}</p>
+        <p class="${resultClass}">${result}</p>
+      `;
+    }
+  </script>
+
+</body>
+</html>
