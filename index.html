@@ -49,6 +49,52 @@ nav ul{display:flex;list-style:none;gap:20px;}
 nav a{color:#fff;text-decoration:none;font-weight:500;}
 nav a:hover{color:#38bdf8}
 
+  /* ===== DARK MODE ===== */
+body.dark {
+  background: #020617;
+  color: #e5e7eb;
+}
+
+body.dark nav {
+  background: #020617;
+}
+
+body.dark header {
+  background: linear-gradient(135deg,#020617,#020617);
+}
+
+body.dark section {
+  background: #020617;
+}
+
+body.dark #about p,
+body.dark .time-box p,
+body.dark .project-content p {
+  color: #cbd5e1;
+}
+
+body.dark .service,
+body.dark .project,
+body.dark .time-box {
+  background: #020617;
+  border: 1px solid #1e293b;
+}
+
+body.dark footer {
+  background: #020617;
+}
+
+/* Toggle Button */
+.theme-btn {
+  background: none;
+  border: 2px solid #38bdf8;
+  color: #38bdf8;
+  padding: 6px 10px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 18px;
+}
+
 /* Header */
 header{
   background:linear-gradient(135deg,#020f26,#04152d);
@@ -326,6 +372,7 @@ form button:hover {
     <li><a href="#contact">Contact</a></li>
 
   </ul>
+  <button id="themeToggle" class="theme-btn">🌙</button>
 </nav>
 
 <header>
@@ -488,6 +535,25 @@ form button:hover {
 <p class="footer-copy">© 2025 Sibaprasad Nayak</p>
 </footer>
 <script>
+  const toggleBtn = document.getElementById("themeToggle");
+
+// Load saved theme
+if (localStorage.getItem("theme") === "dark") {
+  document.body.classList.add("dark");
+  toggleBtn.textContent = "☀️";
+}
+
+toggleBtn.onclick = () => {
+  document.body.classList.toggle("dark");
+
+  if (document.body.classList.contains("dark")) {
+    toggleBtn.textContent = "☀️";
+    localStorage.setItem("theme", "dark");
+  } else {
+    toggleBtn.textContent = "🌙";
+    localStorage.setItem("theme", "light");
+  }
+};
 /* Typing Effect */
 const text = "Java Full Stack Developer | Web Developer | Tech Learner | Problem Solver | Creative Coder | Passionate Programmer";
 let i = 0;
@@ -523,3 +589,4 @@ topBtn.onclick = ()=> window.scrollTo({top:0,behavior:"smooth"});
 
 </body>
 </html>
+
