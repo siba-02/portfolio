@@ -3,158 +3,574 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student profile</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Student profile – BIET Bhadrak</title>
+    <!-- Font Awesome for icons (optional but nice) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
+            transition: background-color 0.25s ease, color 0.2s ease, border-color 0.2s;
+        }
+
+        /* ===== LIGHT THEME (default) ===== */
+        body.light-theme {
+            background: #f0f4fa;
+            color: #1e2a3a;
+        }
+        body.light-theme nav,
+        body.light-theme .scroll,
+        body.light-theme .student1,
+        body.light-theme .card,
+        body.light-theme .resources,
+        body.light-theme table,
+        body.light-theme .form-section form,
+        body.light-theme footer {
+            background: #ffffff;
+            color: #1e2a3a;
+            border-color: #dde3ed;
+        }
+        body.light-theme .hero {
+            background: linear-gradient(145deg, #dfe9f3, #ffffff);
+            color: #0b2a4a;
+        }
+        body.light-theme table td, 
+        body.light-theme table th {
+            border-color: #b0c4de;
+        }
+        body.light-theme footer a {
+            color: #0066cc;
+        }
+
+        /* ===== DARK THEME ===== */
+        body.dark-theme {
+            background: #121212;
+            color: #eaeef2;
+        }
+        body.dark-theme nav,
+        body.dark-theme .scroll,
+        body.dark-theme .student1,
+        body.dark-theme .card,
+        body.dark-theme .resources,
+        body.dark-theme table,
+        body.dark-theme .form-section form,
+        body.dark-theme footer {
+            background: #1e1e2f;
+            color: #f0f0f0;
+            border-color: #2f3b4c;
+        }
+        body.dark-theme .hero {
+            background: linear-gradient(145deg, #1a2635, #0d1421);
+            color: #cfdfff;
+        }
+        body.dark-theme a {
+            color: #80b5ff;
+        }
+        body.dark-theme table td, 
+        body.dark-theme table th {
+            border-color: #3a4a5e;
+        }
+        body.dark-theme input, 
+        body.dark-theme select, 
+        body.dark-theme button {
+            background: #2a2a40;
+            color: white;
+            border: 1px solid #4f5b6b;
+        }
+        body.dark-theme ::placeholder {
+            color: #aaa;
+        }
+
+        /* === SCROLLING BANNER === */
+        .scroll {
+            overflow: hidden;
+            white-space: nowrap;
+            background: #102a4c;
+            color: white;
+            padding: 10px 0;
+            font-weight: 500;
+            position: relative;
+            width: 100%;
+        }
+        .scroll span {
+            display: inline-block;
+            animation: scrollBanner 22s linear infinite;
+            padding-left: 100%;
+            font-size: clamp(14px, 2.5vw, 16px);
+        }
+        @keyframes scrollBanner {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-100%); }
+        }
+
+        /* === NAVBAR (fully responsive) === */
+        nav {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 5%;
+            background: #fff;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            gap: 10px 20px;
+        }
+        nav h1.a {
+            font-size: 1.8rem;
+            background: linear-gradient(135deg, #b22222, #d84c4c);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 1px;
+        }
+        nav ul {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px 25px;
+            list-style: none;
+            align-items: center;
+        }
+        nav ul li a {
+            text-decoration: none;
+            font-weight: 600;
+            color: inherit;
+            padding: 6px 0;
+            border-bottom: 2px solid transparent;
+        }
+        nav ul li a:hover {
+            border-bottom-color: #b22222;
+        }
+
+        /* theme toggle button inside nav */
+        .theme-toggle {
+            background: transparent;
+            border: 2px solid currentColor;
+            border-radius: 40px;
+            padding: 6px 16px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+            margin-left: 5px;
+        }
+        .theme-toggle i {
+            font-size: 1rem;
+        }
+
+        /* === HERO === */
+        .hero {
+            text-align: center;
+            padding: 60px 20px;
+            background: linear-gradient(145deg, #e6f0fa, #dbeafe);
+        }
+        .hero h2 {
+            font-size: clamp(24px, 5vw, 38px);
+        }
+        .hero blockquote {
+            font-size: 1.3rem;
+            margin: 15px 0 0;
+            font-style: italic;
+            color: #b14e4e;
+        }
+
+        /* === SECTION TITLES === */
+        .c {
+            text-align: center;
+            font-size: clamp(28px, 6vw, 42px);
+            margin: 30px 0 20px;
+            color: #b22222;
+        }
+
+        /* === STUDENT CARDS (grid) === */
+        .b {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 30px;
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 5%;
+        }
+        .student1 {
+            background: white;
+            border-radius: 30px;
+            padding: 22px 16px 26px;
+            text-align: center;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
+        }
+        .student1:hover {
+            transform: translateY(-6px);
+        }
+        .student1 img {
+            width: 140px;
+            height: 140px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 4px solid #b22222;
+            margin-bottom: 12px;
+        }
+        .student1 h2 {
+            font-size: 1.5rem;
+            margin: 10px 0 5px;
+        }
+
+        /* service cards (3 columns responsive) */
+        .service {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 25px;
+            max-width: 1000px;
+            margin: 50px auto;
+            padding: 0 5%;
+        }
+        .card {
+            background: white;
+            padding: 30px 15px;
+            border-radius: 30px;
+            text-align: center;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+        }
+        .card h3 {
+            color: #b22222;
+            margin-bottom: 8px;
+        }
+
+        /* resources and table wrapper */
+        .all {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 5%;
+        }
+        .resources {
+            background: white;
+            padding: 30px;
+            border-radius: 40px;
+            margin: 40px 0;
+            text-align: center;
+        }
+        .resources img {
+            height: 100px;
+            width: 160px;
+            object-fit: cover;
+            border-radius: 18px;
+            margin: 10px 8px;
+            box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+        }
+
+        /* table responsive */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 30px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            margin: 40px 0;
+        }
+        th, td {
+            padding: 15px 10px;
+            border: 1px solid #ccc;
+            text-align: left;
+        }
+        th {
+            background: #b22222;
+            color: white;
+        }
+
+        /* lists */
+        .lists {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            gap: 30px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 40px;
+            padding: 30px 20px;
+            margin: 30px 0;
+        }
+        .lists ul, .lists ol {
+            padding-left: 25px;
+            min-width: 160px;
+        }
+        .lists li {
+            margin: 8px 0;
+        }
+
+        /* form */
+        .form-section {
+            max-width: 700px;
+            margin: 50px auto;
+            padding: 0 5%;
+        }
+        .form-section form {
+            background: white;
+            padding: 35px 25px;
+            border-radius: 40px;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+        input, select, button {
+            padding: 14px 20px;
+            border-radius: 50px;
+            border: 1px solid #ccc;
+            font-size: 1rem;
+            outline: none;
+        }
+        button {
+            background: #b22222;
+            color: white;
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        button:hover {
+            background: #8b1a1a;
+            transform: scale(0.98);
+        }
+
+        /* iframe responsive */
+        iframe {
+            width: 100%;
+            max-width: 700px;
+            height: 350px;
+            display: block;
+            margin: 30px auto;
+            border-radius: 40px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+
+        /* footer */
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            background: #0a1a2a;
+            color: white;
+            margin-top: 50px;
+        }
+        body.light-theme footer {
+            background: #cfdbe9;
+            color: #111;
+        }
+        footer a {
+            color: #ffb86b;
+            text-decoration: none;
+            margin: 0 5px;
+        }
+
+        /* mobile fine-tuning */
+        @media (max-width: 600px) {
+            nav {
+                flex-direction: column;
+                align-items: start;
+            }
+            nav ul {
+                width: 100%;
+                justify-content: center;
+            }
+            .theme-toggle {
+                align-self: flex-end;
+                margin-top: 5px;
+            }
+            .resources img {
+                width: 120px;
+                height: 80px;
+            }
+        }
+        @media (max-width: 400px) {
+            .student1 img {
+                width: 120px;
+                height: 120px;
+            }
+        }
+    </style>
 </head>
-<body>
+<body class="light-theme">
+    <!-- Scrolling banner -->
     <div class="scroll">
-        <span>
-            welcome to our website! This is a simple student profile page with some information about a student.
-            just enjoy browsing around! and don't forget to share your thoughts and opinions about our website!
-        </span>
+        <span>welcome to our website! This is a simple student profile page with some information about a student. just enjoy browsing around! and don't forget to share your thoughts and opinions about our website! 🎓✨</span>
     </div>
+
+    <!-- Navbar with theme toggle -->
     <nav>
         <h1 class="a">BIET-BHADRAK</h1>
-    <ul>
-      <li><a href="#">Home</a></li>
-      <li><a href="#">Courses</a>
-      </li>
-      <li><a href="#">Students</a></li>
-      <li><a href="#">Contact</a></li>
-    </ul>
-  </nav>
-  <header class="hero">
-    <h2>Welcome to Our Student Portal</h2>
-    <p><em>Your future begins here 🚀</em>
-    <blockquote>"Education is the most powerful weapon."</blockquote></p>
-  </header>
-<section>
-    <h1 class="c">Student Details</h1>
-    <article class="b">
-  <div class="student1">
-    <img src="siba.webp" alt="Student Image" height="170px" width="189px">
-    <h2>Sibaprasd Nayak</h2>
-    <p>Student ID: 123456</p>
-    <p>Course: Computer Science</p>
-    <p>Year: 4th Year</p>
-    <p>Email: student@example.com</p>
-    <p>Phone: 1234567890</p>
-    <p>Address: Bhadrak, Bhadrak, Odisha, 756119</p>
-  </div>
-  <div class="student1">
-    <img src="bijay.jpg" alt="Student Image" height="160px" width="189px">
-    <h2>Biswajit Shaoo</h2>
-    <p>Student ID: 123458</p>
-    <p>Course: Computer Science</p>
-    <p>Year: 4th Year</p>
-    <p>Email: student@example.com</p>
-    <p>Phone: 1234567987</p>
-    <p>Address: Mangalapur, Jajpur, Odisha, 756110</p>
-  </div>
-  <div class="student1">
-    <img src="Screenshot 2025-09-30 165720.png" alt="Student Image" height="160px" width="189px">
-    <h2>Pritam raj Bal</h2>
-    <p>Student ID: 123459</p>
-    <p>Course: Computer Science</p>
-    <p>Year: 4th Year</p>
-    <p>Email: student@example.com</p>
-    <p>Phone: 1234567870</p>
-    <p>Address: Andapur, Jajpur, Odisha, 756110</p>
-  </div>
-  <div class="student1">
-    <img src="santunu.png" alt="Student Image" height="160px" width="189px">
-    <h2>Santunu Malik</h2>
-    <p>Student ID: 123650</p>
-    <p>Course: Computer Science</p>
-    <p>Year: 4th Year</p>
-    <p>Email: student@example.com</p>
-    <p>Phone: 1234567870</p>
-    <p>Address: Bhadrak, Bhadrak, Odisha, 756119</p>
-  </div>
-  <div class="student1">
-    <img src="milu.jpg" alt="Student Image" height="160px" width="189px">
-    <h2>Onkar Shani</h2>
-    <p>Student ID: 123651</p>
-    <p>Course: Computer Science</p>
-    <p>Year: 4th Year</p>
-    <p>Email: student@example.com</p>
-    <p>Phone: 1234567870</p>
-    <p>Address: Keonjhar, Keonjhar, Odisha, 756119</p>
-  </div>
-  </article>
-  <article class="service">
-    <div class="card"><h3>📚 Courses</h3><p>UG & PG programs available</p></div>
-    <div class="card"><h3>🏨 Hostel</h3><p>Safe and comfortable hostel</p></div>
-    <div class="card"><h3>📖 Library</h3><p>Thousands of resources</p></div>
-  </article>
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Courses</a></li>
+            <li><a href="#">Students</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+        <button class="theme-toggle" id="themeToggle"><i class="fas fa-adjust"></i> <span id="themeText">Dark mode</span></button>
+    </nav>
 
-<div class="all">
+    <!-- Hero -->
+    <header class="hero">
+        <h2>Welcome to Our Student Portal</h2>
+        <p><em>Your future begins here 🚀</em></p>
+        <blockquote>"Education is the most powerful weapon."</blockquote>
+    </header>
 
-  <!-- Resource Page -->
-  <article class="resources">
-    <h2>Student Resources</h2>
-    <img src="biet.webp" alt="Campus" height="100px" width="180px">
-    <img src="libary.jpg" alt="Library" height="100px" width="180px">
-    <img src="OIP.jpeg" alt="Hostel" height="100px" width="180px">
-    <p><a href="#">Syllabus</a> | <a href="#">Books</a></p>
-    <p><a href="#">Exam Form</a> | <a href="#">Results</a></p>
-  </article>
-  <!-- Courses Table -->
-  <h2 style="text-align:center; font-size: 2cm; font-style: bold;">Available Courses</h2>
-  <table>
-    <tr><th>Course</th><th>Duration</th><th>Fees</th></tr>
-    <tr><td>B.Sc</td><td>3 Years</td><td>₹50,000</td></tr>
-    <tr><td>Diploma</td><td>3 Years</td><td>₹45,000</td></tr>
-    <tr><td>MBA</td><td>2 Years</td><td>₹1,00,000</td></tr>
-    <tr><td>BTECH</td><td>4 Years</td><td>$80,000</td></tr>
-    <tr><td>MCA</td><td>4 Years</td><td>$1,20,000</td></tr>
+    <section>
+        <h1 class="c">Student Details</h1>
+        <!-- student cards grid -->
+        <article class="b">
+            <div class="student1">
+                <img src="siba.webp" alt="Student Image" onerror="this.src='https://via.placeholder.com/140x140?text=Siba'">
+                <h2>Sibaprasad Nayak</h2>
+                <p>Student ID: 123456</p><p>Course: Computer Science</p><p>Year: 4th Year</p>
+                <p>Email: student@example.com</p><p>Phone: 1234567890</p><p>Address: Bhadrak, Odisha</p>
+            </div>
+            <div class="student1">
+                <img src="bijay.jpg" alt="Student Image" onerror="this.src='https://via.placeholder.com/140x140?text=Bijay'">
+                <h2>Biswajit Shaoo</h2>
+                <p>Student ID: 123458</p><p>Course: CS</p><p>Year: 4th Year</p>
+                <p>Email: student@example.com</p><p>Phone: 1234567987</p><p>Address: Jajpur, Odisha</p>
+            </div>
+            <div class="student1">
+                <img src="Screenshot 2025-09-30 165720.png" alt="Student Image" onerror="this.src='https://via.placeholder.com/140x140?text=Pritam'">
+                <h2>Pritam raj Bal</h2>
+                <p>Student ID: 123459</p><p>Course: CS</p><p>Year: 4th Year</p>
+                <p>Email: student@example.com</p><p>Phone: 1234567870</p><p>Address: Jajpur, Odisha</p>
+            </div>
+            <div class="student1">
+                <img src="santunu.png" alt="Student Image" onerror="this.src='https://via.placeholder.com/140x140?text=Santunu'">
+                <h2>Santunu Malik</h2>
+                <p>Student ID: 123650</p><p>Course: CS</p><p>Year: 4th Year</p>
+                <p>Email: student@example.com</p><p>Phone: 1234567870</p><p>Address: Bhadrak, Odisha</p>
+            </div>
+            <div class="student1">
+                <img src="milu.jpg" alt="Student Image" onerror="this.src='https://via.placeholder.com/140x140?text=Onkar'">
+                <h2>Onkar Shani</h2>
+                <p>Student ID: 123651</p><p>Course: CS</p><p>Year: 4th Year</p>
+                <p>Email: student@example.com</p><p>Phone: 1234567870</p><p>Address: Keonjhar, Odisha</p>
+            </div>
+        </article>
 
-  </table>
-  <!-- Lists -->
-  <article class="lists">
-    <h2>Available Courses</h2>
-    <ul>
-      <li>B.Sc</li><li>B.A</li><li>MBA</li>
-    </ul>
-    <h2>Steps to Admission</h2>
-    <ol>
-      <li>Fill Registration Form</li>
-      <li>Pay Fees</li>
-      <li>Submit Documents</li>
-    </ol>
-  </article>
-  </div>
-  <!-- Registration Form -->
-  <article class="form-section">
-    <h2 style="font-size: 0.7cm; font-style: bold;">Course Registration Form</h2>
-    <form>
-      <input type="text" placeholder="Full Name" required>
-      <input type="email" placeholder="Email Address" required>
-      <select required>
-        <option>Select Course</option>
-        <option>B.Sc</option>
-        <option>B.A</option>
-        <option>MBA</option>
-        <option>BTECH</option>
-        <option>MCA</option>
-        <option>Diploma</option>
-      </select>
-      <input type="date" required>
-      <button type="submit">Register</button>
-    </form>
-  </article>
-</section>
-<!-- Iframe -->
-  <h2 style="text-align:center;">Our College Location</h2>
-  <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3722.5771279173123!2d86.41759867503319!3d21.08954528057497!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a1c08766789e8b5%3A0xa8a1ef641a1585b1!2sBhadrak%20Institute%20of%20Engineering%20%26%20Technology!5e0!3m2!1sen!2sin!4v1759238246028!5m2!1sen!2sin" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-  <!-- Footer -->
-   <footer>
-    <p>&copy; 2023 Student Portal. All rights reserved.</p>
-    <p>Follow us:
-      <a href="#">Facebook</a> |
-      <a href="#">Instagram</a> |
-      <a href="#">Twitter</a>
-    </p>
-  </footer>
+        <!-- Service cards -->
+        <article class="service">
+            <div class="card"><h3>📚 Courses</h3><p>UG & PG programs available</p></div>
+            <div class="card"><h3>🏨 Hostel</h3><p>Safe and comfortable hostel</p></div>
+            <div class="card"><h3>📖 Library</h3><p>Thousands of resources</p></div>
+        </article>
+
+        <div class="all">
+            <!-- Resources -->
+            <article class="resources">
+                <h2>Student Resources</h2>
+                <img src="biet.webp" alt="Campus" onerror="this.src='https://via.placeholder.com/180x100?text=Campus'">
+                <img src="libary.jpg" alt="Library" onerror="this.src='https://via.placeholder.com/180x100?text=Library'">
+                <img src="OIP.jpeg" alt="Hostel" onerror="this.src='https://via.placeholder.com/180x100?text=Hostel'">
+                <p><a href="#">Syllabus</a> | <a href="#">Books</a> | <a href="#">Exam Form</a> | <a href="#">Results</a></p>
+            </article>
+
+            <!-- Courses Table -->
+            <h2 style="text-align:center; font-size: clamp(1.8rem, 6vw, 2.5rem); margin: 40px 0 10px;">Available Courses</h2>
+            <table>
+                <tr><th>Course</th><th>Duration</th><th>Fees</th></tr>
+                <tr><td>B.Sc</td><td>3 Years</td><td>₹50,000</td></tr>
+                <tr><td>Diploma</td><td>3 Years</td><td>₹45,000</td></tr>
+                <tr><td>MBA</td><td>2 Years</td><td>₹1,00,000</td></tr>
+                <tr><td>BTECH</td><td>4 Years</td><td>₹80,000</td></tr>
+                <tr><td>MCA</td><td>4 Years</td><td>₹1,20,000</td></tr>
+            </table>
+
+            <!-- Lists -->
+            <article class="lists">
+                <div><h2>📋 Available Courses</h2><ul><li>B.Sc</li><li>B.A</li><li>MBA</li><li>BTECH</li></ul></div>
+                <div><h2>📝 Steps to Admission</h2><ol><li>Fill Registration Form</li><li>Pay Fees</li><li>Submit Documents</li></ol></div>
+            </article>
+        </div>
+
+        <!-- Registration Form -->
+        <article class="form-section">
+            <h2 style="font-size: 1.7rem; text-align: center;">Course Registration Form</h2>
+            <form id="registerForm">
+                <input type="text" placeholder="Full Name" required>
+                <input type="email" placeholder="Email Address" required>
+                <select required>
+                    <option value="">Select Course</option>
+                    <option>B.Sc</option><option>B.A</option><option>MBA</option><option>BTECH</option><option>MCA</option><option>Diploma</option>
+                </select>
+                <input type="date" required>
+                <button type="submit">Register</button>
+                <p id="formFeedback" style="text-align: center; color: #b22222;"></p>
+            </form>
+        </article>
+
+        <!-- Map -->
+        <h2 style="text-align:center;">Our College Location</h2>
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3722.5771279173123!2d86.41759867503319!3d21.08954528057497!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a1c08766789e8b5%3A0xa8a1ef641a1585b1!2sBhadrak%20Institute%20of%20Engineering%20%26%20Technology!5e0!3m2!1sen!2sin!4v1759238246028!5m2!1sen!2sin" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2023 Student Portal. All rights reserved.</p>
+        <p>Follow us:
+            <a href="#">Facebook</a> | <a href="#">Instagram</a> | <a href="#">Twitter</a>
+        </p>
+    </footer>
+
+    <!-- JavaScript: theme toggle + form handler + general interactivity -->
+    <script>
+        (function() {
+            // ----- DARK / LIGHT TOGGLE with localStorage -----
+            const body = document.body;
+            const toggleBtn = document.getElementById('themeToggle');
+            const themeSpan = document.getElementById('themeText');
+
+            function setTheme(theme) {
+                body.classList.remove('light-theme', 'dark-theme');
+                body.classList.add(theme);
+                localStorage.setItem('studentPortalTheme', theme);
+                themeSpan.innerText = (theme === 'dark-theme') ? 'Light mode' : 'Dark mode';
+            }
+
+            // load saved theme
+            const savedTheme = localStorage.getItem('studentPortalTheme') || 'light-theme';
+            setTheme(savedTheme);
+
+            toggleBtn.addEventListener('click', () => {
+                const newTheme = body.classList.contains('dark-theme') ? 'light-theme' : 'dark-theme';
+                setTheme(newTheme);
+            });
+
+            // ----- REGISTRATION FORM (simple feedback) -----
+            const form = document.getElementById('registerForm');
+            const feedback = document.getElementById('formFeedback') || document.createElement('p');
+            if (!feedback.id) feedback.id = 'formFeedback';
+            form.appendChild(feedback);
+
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const name = this.querySelector('input[type="text"]').value.trim();
+                if (name) {
+                    feedback.innerText = `✅ Thank you ${name}, registration received! (demo)`;
+                    feedback.style.color = '#28a745';
+                } else {
+                    feedback.innerText = '❗ Please fill all fields';
+                    feedback.style.color = '#b22222';
+                }
+                // optionally reset after 4 seconds
+                setTimeout(() => feedback.innerText = '', 4000);
+            });
+
+            // ----- make all internal links work smoothly (just prevent default and alert) -----
+            document.querySelectorAll('nav a, .resources a').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    alert('🔗 Demo navigation: ' + (e.target.innerText || 'link'));
+                });
+            });
+
+            // ----- placeholder for any missing images (already using onerror) -----
+        })();
+    </script>
 </body>
 </html>
