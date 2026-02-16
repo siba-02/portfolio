@@ -1,0 +1,1849 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SecureBank Pro - Full Banking System</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1a2980, #26d0ce);
+            color: #333;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            color: white;
+            margin-bottom: 30px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo i {
+            font-size: 2.5rem;
+            color: #4dffea;
+        }
+
+        .logo h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+        }
+
+        .tagline {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-top: 5px;
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .auth-btn {
+            padding: 12px 25px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .auth-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 500px;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .modal-header {
+            background: linear-gradient(to right, #1a2980, #26d0ce);
+            color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h2 {
+            font-size: 1.5rem;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .close-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .modal-body {
+            padding: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #444;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border 0.3s;
+        }
+
+        .form-control:focus {
+            border-color: #1a2980;
+            outline: none;
+        }
+
+        .btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background: linear-gradient(to right, #1a2980, #26d0ce);
+            color: white;
+            width: 100%;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(26, 41, 128, 0.3);
+        }
+
+        .btn-secondary {
+            background: #f0f0f0;
+            color: #333;
+        }
+
+        /* Main Content */
+        .main-content {
+            display: none;
+            grid-template-columns: 1fr 2fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        @media (max-width: 900px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Account Selection Panel */
+        .panel {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .panel h2 {
+            color: #1a2980;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #f0f0f0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .panel h2 i {
+            color: #26d0ce;
+        }
+
+        .account-options {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .account-option {
+            display: flex;
+            align-items: center;
+            padding: 18px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .account-option:hover {
+            border-color: #26d0ce;
+            background-color: #f9f9f9;
+        }
+
+        .account-option.selected {
+            border-color: #1a2980;
+            background-color: #f0f7ff;
+        }
+
+        .account-icon {
+            width: 50px;
+            height: 50px;
+            background: #e8f4ff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+        }
+
+        .account-icon i {
+            font-size: 1.5rem;
+            color: #1a2980;
+        }
+
+        .account-details h3 {
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .account-details p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .balance-display {
+            background: linear-gradient(to right, #1a2980, #26d0ce);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .balance-amount {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin: 10px 0;
+        }
+
+        /* Banking Operations Panel */
+        .operations-panel {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .tab-menu {
+            display: flex;
+            border-bottom: 1px solid #e0e0e0;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+
+        .tab {
+            padding: 15px 25px;
+            cursor: pointer;
+            font-weight: 600;
+            color: #777;
+            transition: all 0.3s;
+            border-bottom: 3px solid transparent;
+        }
+
+        .tab.active {
+            color: #1a2980;
+            border-bottom: 3px solid #1a2980;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .account-info {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .info-row:last-child {
+            border-bottom: none;
+        }
+
+        .info-label {
+            font-weight: 600;
+            color: #555;
+        }
+
+        .info-value {
+            color: #333;
+            font-weight: 500;
+        }
+
+        /* Transaction History */
+        .transaction-history {
+            max-height: 300px;
+            overflow-y: auto;
+            margin-top: 20px;
+        }
+
+        .transaction-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+            background: #f9f9f9;
+            margin-bottom: 10px;
+            border-radius: 8px;
+        }
+
+        .transaction-type {
+            font-weight: 600;
+        }
+
+        .withdrawal {
+            color: #e74c3c;
+        }
+
+        .deposit {
+            color: #2ecc71;
+        }
+
+        .transaction-amount {
+            font-weight: 700;
+        }
+
+        .transaction-date {
+            color: #777;
+            font-size: 0.9rem;
+        }
+
+        /* User Accounts Panel */
+        .user-accounts {
+            margin-top: 20px;
+        }
+
+        .user-account {
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            border-left: 5px solid #1a2980;
+        }
+
+        .user-account-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .account-action-btn {
+            padding: 8px 15px;
+            background: #1a2980;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            color: white;
+            padding: 20px;
+            margin-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Notification */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 25px;
+            border-radius: 8px;
+            color: white;
+            font-weight: 600;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            display: none;
+        }
+
+        .success {
+            background: linear-gradient(to right, #2ecc71, #27ae60);
+        }
+
+        .error {
+            background: linear-gradient(to right, #e74c3c, #c0392b);
+        }
+
+        .info {
+            background: linear-gradient(to right, #3498db, #2980b9);
+        }
+
+        /* Login/Register Toggle */
+        .auth-toggle {
+            text-align: center;
+            margin-top: 20px;
+            color: #666;
+        }
+
+        .toggle-link {
+            color: #1a2980;
+            cursor: pointer;
+            text-decoration: underline;
+            font-weight: 600;
+        }
+
+        /* Logout Button */
+        .logout-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            padding: 12px 25px;
+            background: rgba(231, 76, 60, 0.9);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            z-index: 100;
+            display: none;
+        }
+
+        .logout-btn:hover {
+            background: rgba(231, 76, 60, 1);
+            transform: translateY(-3px);
+        }
+
+        /* Dashboard Stats */
+        .dashboard-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #1a2980;
+            margin: 10px 0;
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <i class="fas fa-university"></i>
+                <div>
+                    <h1>SecureBank Pro</h1>
+                    <div class="tagline">Full-Service Digital Banking</div>
+                </div>
+            </div>
+            <div class="auth-buttons">
+                <button class="auth-btn" id="login-btn">
+                    <i class="fas fa-sign-in-alt"></i> Login
+                </button>
+                <button class="auth-btn" id="register-btn">
+                    <i class="fas fa-user-plus"></i> Register
+                </button>
+            </div>
+        </header>
+
+        <!-- Login Modal -->
+        <div class="modal" id="login-modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2><i class="fas fa-sign-in-alt"></i> User Login</h2>
+                    <button class="close-btn" id="close-login">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="login-email">Email Address</label>
+                        <input type="email" id="login-email" class="form-control" placeholder="Enter your email">
+                    </div>
+                    <div class="form-group">
+                        <label for="login-password">Password</label>
+                        <input type="password" id="login-password" class="form-control" placeholder="Enter your password">
+                    </div>
+                    <button class="btn btn-primary" id="submit-login">
+                        <i class="fas fa-lock"></i> Login to Account
+                    </button>
+                    <div class="auth-toggle">
+                        Don't have an account? <span class="toggle-link" id="show-register">Register here</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Register Modal -->
+        <div class="modal" id="register-modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2><i class="fas fa-user-plus"></i> Create New Account</h2>
+                    <button class="close-btn" id="close-register">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="register-name">Full Name</label>
+                        <input type="text" id="register-name" class="form-control" placeholder="Enter your full name">
+                    </div>
+                    <div class="form-group">
+                        <label for="register-email">Email Address</label>
+                        <input type="email" id="register-email" class="form-control" placeholder="Enter your email">
+                    </div>
+                    <div class="form-group">
+                        <label for="register-password">Password</label>
+                        <input type="password" id="register-password" class="form-control" placeholder="Create a password">
+                    </div>
+                    <div class="form-group">
+                        <label for="register-phone">Phone Number</label>
+                        <input type="tel" id="register-phone" class="form-control" placeholder="Enter your phone number">
+                    </div>
+                    <div class="form-group">
+                        <label>Initial Account Type</label>
+                        <div style="display: flex; gap: 15px; margin-top: 10px;">
+                            <label style="display: flex; align-items: center; gap: 5px;">
+                                <input type="radio" name="account-type" value="saving" checked> Saving Account
+                            </label>
+                            <label style="display: flex; align-items: center; gap: 5px;">
+                                <input type="radio" name="account-type" value="current"> Current Account
+                            </label>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary" id="submit-register">
+                        <i class="fas fa-user-plus"></i> Create Account
+                    </button>
+                    <div class="auth-toggle">
+                        Already have an account? <span class="toggle-link" id="show-login">Login here</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Account Creation Modal -->
+        <div class="modal" id="new-account-modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2><i class="fas fa-plus-circle"></i> Create New Bank Account</h2>
+                    <button class="close-btn" id="close-new-account">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Account Type</label>
+                        <select id="account-type-select" class="form-control">
+                            <option value="saving">Saving Account</option>
+                            <option value="current">Current Account</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Initial Deposit (₹)</label>
+                        <input type="number" id="initial-deposit" class="form-control" placeholder="Enter initial deposit amount" min="1000" value="1000">
+                        <small>Minimum deposit: ₹1000</small>
+                    </div>
+                    <button class="btn btn-primary" id="submit-new-account">
+                        <i class="fas fa-check-circle"></i> Create Bank Account
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Dashboard Content (Visible after login) -->
+        <div id="dashboard">
+            <div class="dashboard-stats" id="dashboard-stats">
+                <!-- Stats will be populated dynamically -->
+            </div>
+
+            <div class="main-content" id="main-content">
+                <!-- Account Selection Panel -->
+                <div class="panel">
+                    <h2><i class="fas fa-credit-card"></i> My Accounts</h2>
+                    <div class="account-options" id="account-options">
+                        <!-- Accounts will be loaded dynamically -->
+                    </div>
+                    
+                    <button class="btn btn-primary" id="create-account-btn" style="width: 100%; margin-top: 20px;">
+                        <i class="fas fa-plus-circle"></i> Create New Account
+                    </button>
+                    
+                    <div class="balance-display">
+                        <div>Available Balance</div>
+                        <div class="balance-amount" id="balance-amount">₹0.00</div>
+                        <div id="selected-account-type">Select an account</div>
+                    </div>
+                </div>
+
+                <!-- Banking Operations Panel -->
+                <div class="operations-panel">
+                    <div class="tab-menu">
+                        <div class="tab active" data-tab="info">Account Info</div>
+                        <div class="tab" data-tab="withdraw">Withdraw</div>
+                        <div class="tab" data-tab="deposit">Deposit</div>
+                        <div class="tab" data-tab="transfer">Transfer</div>
+                        <div class="tab" data-tab="history">Transaction History</div>
+                    </div>
+
+                    <!-- Account Info Tab -->
+                    <div class="tab-content active" id="info-tab">
+                        <div class="account-info">
+                            <div class="info-row">
+                                <div class="info-label">Account Holder</div>
+                                <div class="info-value" id="info-name">-</div>
+                            </div>
+                            <div class="info-row">
+                                <div class="info-label">Account Number</div>
+                                <div class="info-value" id="info-accno">-</div>
+                            </div>
+                            <div class="info-row">
+                                <div class="info-label">Account Type</div>
+                                <div class="info-value" id="info-type">-</div>
+                            </div>
+                            <div class="info-row">
+                                <div class="info-label">Current Balance</div>
+                                <div class="info-value" id="info-balance">₹0.00</div>
+                            </div>
+                            <div class="info-row">
+                                <div class="info-label">Account Created</div>
+                                <div class="info-value" id="info-created">-</div>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary" id="refresh-info">
+                            <i class="fas fa-sync-alt"></i> Refresh Information
+                        </button>
+                    </div>
+
+                    <!-- Withdraw Tab -->
+                    <div class="tab-content" id="withdraw-tab">
+                        <div class="operation-form">
+                            <div class="form-group">
+                                <label for="withdraw-amount">Amount to Withdraw (₹)</label>
+                                <input type="number" id="withdraw-amount" class="form-control" placeholder="Enter amount" min="1" step="0.01">
+                                <small class="form-text">Available balance: <span id="withdraw-balance">₹0.00</span></small>
+                            </div>
+                            <button class="btn btn-primary" id="withdraw-btn">
+                                <i class="fas fa-money-bill-wave"></i> Withdraw Funds
+                            </button>
+                            <button class="btn btn-secondary" id="withdraw-cancel">Cancel</button>
+                        </div>
+                    </div>
+
+                    <!-- Deposit Tab -->
+                    <div class="tab-content" id="deposit-tab">
+                        <div class="operation-form">
+                            <div class="form-group">
+                                <label for="deposit-amount">Amount to Deposit (₹)</label>
+                                <input type="number" id="deposit-amount" class="form-control" placeholder="Enter amount" min="1" step="0.01">
+                            </div>
+                            <button class="btn btn-primary" id="deposit-btn">
+                                <i class="fas fa-coins"></i> Deposit Funds
+                            </button>
+                            <button class="btn btn-secondary" id="deposit-cancel">Cancel</button>
+                        </div>
+                    </div>
+
+                    <!-- Transfer Tab -->
+                    <div class="tab-content" id="transfer-tab">
+                        <div class="operation-form">
+                            <div class="form-group">
+                                <label for="transfer-from">From Account</label>
+                                <select id="transfer-from" class="form-control">
+                                    <!-- Accounts will be populated dynamically -->
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="transfer-to">To Account Number</label>
+                                <input type="text" id="transfer-to" class="form-control" placeholder="Enter recipient account number">
+                            </div>
+                            <div class="form-group">
+                                <label for="transfer-amount">Amount (₹)</label>
+                                <input type="number" id="transfer-amount" class="form-control" placeholder="Enter amount" min="1" step="0.01">
+                                <small class="form-text">Available balance: <span id="transfer-balance">₹0.00</span></small>
+                            </div>
+                            <button class="btn btn-primary" id="transfer-btn">
+                                <i class="fas fa-exchange-alt"></i> Transfer Funds
+                            </button>
+                            <button class="btn btn-secondary" id="transfer-cancel">Clear</button>
+                        </div>
+                    </div>
+
+                    <!-- Transaction History Tab -->
+                    <div class="tab-content" id="history-tab">
+                        <div class="form-group">
+                            <label>Select Account</label>
+                            <select id="history-account" class="form-control">
+                                <!-- Accounts will be populated dynamically -->
+                            </select>
+                        </div>
+                        <div class="transaction-history" id="transaction-history">
+                            <!-- Transaction items will be added here dynamically -->
+                        </div>
+                        <button class="btn btn-secondary" id="clear-history">
+                            <i class="fas fa-trash-alt"></i> Clear History
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- User Accounts Panel -->
+        <div class="panel" id="user-accounts-panel" style="display: none; margin-top: 30px;">
+            <h2><i class="fas fa-users"></i> All User Accounts</h2>
+            <div class="user-accounts" id="user-accounts-list">
+                <!-- User accounts will be loaded dynamically -->
+            </div>
+        </div>
+
+        <footer>
+            <p>SecureBank Pro &copy; 2023 | All Rights Reserved | <i class="fas fa-lock"></i> Bank-Grade Security</p>
+            <p style="margin-top: 10px; font-size: 0.9rem;">
+                <i class="fas fa-phone"></i> Customer Support: 1800-123-4567 | 
+                <i class="fas fa-envelope"></i> Email: support@securebankpro.com
+            </p>
+        </footer>
+    </div>
+
+    <!-- Logout Button -->
+    <button class="logout-btn" id="logout-btn">
+        <i class="fas fa-sign-out-alt"></i> Logout
+    </button>
+
+    <!-- Notification Element -->
+    <div class="notification" id="notification"></div>
+
+    <script>
+        // Banking System Database
+        class BankingSystem {
+            constructor() {
+                // Load data from localStorage or initialize
+                this.users = JSON.parse(localStorage.getItem('bankUsers')) || [];
+                this.accounts = JSON.parse(localStorage.getItem('bankAccounts')) || [];
+                this.transactions = JSON.parse(localStorage.getItem('bankTransactions')) || [];
+                this.currentUser = null;
+                this.selectedAccount = null;
+                
+                // Add admin user if not exists
+                if (!this.users.find(u => u.email === 'admin@bank.com')) {
+                    this.users.push({
+                        id: this.generateId(),
+                        name: 'Administrator',
+                        email: 'admin@bank.com',
+                        password: 'admin123',
+                        phone: '9999999999',
+                        role: 'admin',
+                        createdAt: new Date().toISOString()
+                    });
+                    this.saveUsers();
+                }
+                
+                // Add demo data if empty
+                if (this.accounts.length === 0) {
+                    this.addDemoData();
+                }
+            }
+            
+            generateId() {
+                return Date.now().toString(36) + Math.random().toString(36).substr(2);
+            }
+            
+            saveUsers() {
+                localStorage.setItem('bankUsers', JSON.stringify(this.users));
+            }
+            
+            saveAccounts() {
+                localStorage.setItem('bankAccounts', JSON.stringify(this.accounts));
+            }
+            
+            saveTransactions() {
+                localStorage.setItem('bankTransactions', JSON.stringify(this.transactions));
+            }
+            
+            registerUser(name, email, password, phone, initialAccountType = 'saving') {
+                // Check if user already exists
+                if (this.users.find(u => u.email === email)) {
+                    return { success: false, message: 'User with this email already exists' };
+                }
+                
+                // Create new user
+                const newUser = {
+                    id: this.generateId(),
+                    name,
+                    email,
+                    password, // In real app, this should be hashed
+                    phone,
+                    role: 'customer',
+                    createdAt: new Date().toISOString()
+                };
+                
+                this.users.push(newUser);
+                this.saveUsers();
+                
+                // Create initial account
+                const accountNumber = this.generateAccountNumber();
+                const newAccount = {
+                    id: this.generateId(),
+                    userId: newUser.id,
+                    accountNumber,
+                    type: initialAccountType,
+                    balance: 1000, // Minimum balance
+                    createdAt: new Date().toISOString(),
+                    active: true
+                };
+                
+                this.accounts.push(newAccount);
+                this.saveAccounts();
+                
+                // Add initial deposit transaction
+                this.addTransaction(
+                    newAccount.id,
+                    'Deposit',
+                    1000,
+                    'Initial deposit',
+                    newAccount.balance
+                );
+                
+                return { 
+                    success: true, 
+                    message: 'Account created successfully',
+                    user: newUser,
+                    account: newAccount
+                };
+            }
+            
+            loginUser(email, password) {
+                const user = this.users.find(u => u.email === email && u.password === password);
+                
+                if (!user) {
+                    return { success: false, message: 'Invalid email or password' };
+                }
+                
+                this.currentUser = user;
+                return { success: true, user };
+            }
+            
+            logout() {
+                this.currentUser = null;
+                this.selectedAccount = null;
+            }
+            
+            generateAccountNumber() {
+                // Generate 10-digit account number
+                return '10' + Math.floor(10000000 + Math.random() * 90000000);
+            }
+            
+            createAccount(userId, type, initialDeposit = 1000) {
+                const accountNumber = this.generateAccountNumber();
+                const newAccount = {
+                    id: this.generateId(),
+                    userId,
+                    accountNumber,
+                    type,
+                    balance: parseFloat(initialDeposit),
+                    createdAt: new Date().toISOString(),
+                    active: true
+                };
+                
+                this.accounts.push(newAccount);
+                this.saveAccounts();
+                
+                // Add initial deposit transaction
+                if (initialDeposit > 0) {
+                    this.addTransaction(
+                        newAccount.id,
+                        'Deposit',
+                        initialDeposit,
+                        'Initial deposit',
+                        newAccount.balance
+                    );
+                }
+                
+                return newAccount;
+            }
+            
+            getUserAccounts(userId) {
+                return this.accounts.filter(acc => acc.userId === userId && acc.active);
+            }
+            
+            getAccountByNumber(accountNumber) {
+                return this.accounts.find(acc => acc.accountNumber === accountNumber && acc.active);
+            }
+            
+            getAccountById(accountId) {
+                return this.accounts.find(acc => acc.id === accountId);
+            }
+            
+            deposit(accountId, amount) {
+                const account = this.getAccountById(accountId);
+                
+                if (!account) {
+                    return { success: false, message: 'Account not found' };
+                }
+                
+                account.balance += parseFloat(amount);
+                this.saveAccounts();
+                
+                // Add transaction
+                this.addTransaction(
+                    accountId,
+                    'Deposit',
+                    amount,
+                    'Cash deposit',
+                    account.balance
+                );
+                
+                return { success: true, balance: account.balance };
+            }
+            
+            withdraw(accountId, amount) {
+                const account = this.getAccountById(accountId);
+                
+                if (!account) {
+                    return { success: false, message: 'Account not found' };
+                }
+                
+                if (account.balance < amount) {
+                    return { success: false, message: 'Insufficient balance' };
+                }
+                
+                account.balance -= parseFloat(amount);
+                this.saveAccounts();
+                
+                // Add transaction
+                this.addTransaction(
+                    accountId,
+                    'Withdrawal',
+                    amount,
+                    'Cash withdrawal',
+                    account.balance
+                );
+                
+                return { success: true, balance: account.balance };
+            }
+            
+            transfer(fromAccountId, toAccountNumber, amount, description = 'Fund transfer') {
+                const fromAccount = this.getAccountById(fromAccountId);
+                const toAccount = this.getAccountByNumber(toAccountNumber);
+                
+                if (!fromAccount) {
+                    return { success: false, message: 'Sender account not found' };
+                }
+                
+                if (!toAccount) {
+                    return { success: false, message: 'Recipient account not found' };
+                }
+                
+                if (fromAccount.balance < amount) {
+                    return { success: false, message: 'Insufficient balance' };
+                }
+                
+                // Perform transfer
+                fromAccount.balance -= parseFloat(amount);
+                toAccount.balance += parseFloat(amount);
+                this.saveAccounts();
+                
+                // Add transactions for both accounts
+                this.addTransaction(
+                    fromAccountId,
+                    'Transfer Out',
+                    amount,
+                    `Transfer to ${toAccountNumber}: ${description}`,
+                    fromAccount.balance
+                );
+                
+                this.addTransaction(
+                    toAccount.id,
+                    'Transfer In',
+                    amount,
+                    `Transfer from ${fromAccount.accountNumber}: ${description}`,
+                    toAccount.balance
+                );
+                
+                return { 
+                    success: true, 
+                    fromBalance: fromAccount.balance,
+                    toBalance: toAccount.balance
+                };
+            }
+            
+            addTransaction(accountId, type, amount, description, balanceAfter) {
+                const transaction = {
+                    id: this.generateId(),
+                    accountId,
+                    type,
+                    amount: parseFloat(amount),
+                    description,
+                    balanceAfter: parseFloat(balanceAfter),
+                    timestamp: new Date().toISOString()
+                };
+                
+                this.transactions.push(transaction);
+                this.saveTransactions();
+                
+                return transaction;
+            }
+            
+            getAccountTransactions(accountId) {
+                return this.transactions
+                    .filter(t => t.accountId === accountId)
+                    .sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+            }
+            
+            getAllUsers() {
+                return this.users.filter(u => u.role === 'customer');
+            }
+            
+            getUserById(userId) {
+                return this.users.find(u => u.id === userId);
+            }
+            
+            addDemoData() {
+                // Demo users
+                const demoUsers = [
+                    {
+                        id: this.generateId(),
+                        name: 'Shivam',
+                        email: 'shivam@demo.com',
+                        password: 'demo123',
+                        phone: '9876543210',
+                        role: 'customer',
+                        createdAt: new Date().toISOString()
+                    },
+                    {
+                        id: this.generateId(),
+                        name: 'Bijay',
+                        email: 'bijay@demo.com',
+                        password: 'demo123',
+                        phone: '9876543211',
+                        role: 'customer',
+                        createdAt: new Date().toISOString()
+                    }
+                ];
+                
+                demoUsers.forEach(user => this.users.push(user));
+                this.saveUsers();
+                
+                // Demo accounts
+                const shivamAccount = {
+                    id: this.generateId(),
+                    userId: demoUsers[0].id,
+                    accountNumber: '1010101010',
+                    type: 'saving',
+                    balance: 5000,
+                    createdAt: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString(),
+                    active: true
+                };
+                
+                const bijayAccount = {
+                    id: this.generateId(),
+                    userId: demoUsers[1].id,
+                    accountNumber: '2020202020',
+                    type: 'current',
+                    balance: 10000,
+                    createdAt: new Date(Date.now() - 15 * 24 * 60 * 60 * 1000).toISOString(),
+                    active: true
+                };
+                
+                this.accounts.push(shivamAccount, bijayAccount);
+                this.saveAccounts();
+                
+                // Demo transactions
+                const demoTransactions = [
+                    { accountId: shivamAccount.id, type: 'Deposit', amount: 5000, daysAgo: 30 },
+                    { accountId: shivamAccount.id, type: 'Withdrawal', amount: 1000, daysAgo: 25 },
+                    { accountId: shivamAccount.id, type: 'Deposit', amount: 2000, daysAgo: 20 },
+                    { accountId: shivamAccount.id, type: 'Transfer Out', amount: 500, daysAgo: 10 },
+                    { accountId: bijayAccount.id, type: 'Deposit', amount: 10000, daysAgo: 15 },
+                    { accountId: bijayAccount.id, type: 'Transfer In', amount: 500, daysAgo: 10 },
+                    { accountId: bijayAccount.id, type: 'Withdrawal', amount: 1500, daysAgo: 5 }
+                ];
+                
+                demoTransactions.forEach(demo => {
+                    const date = new Date();
+                    date.setDate(date.getDate() - demo.daysAgo);
+                    
+                    // Calculate balance after transaction
+                    let balance = demo.type === 'Deposit' || demo.type === 'Transfer In' ? 
+                        demo.amount : -demo.amount;
+                    
+                    if (demo.accountId === shivamAccount.id) {
+                        balance = shivamAccount.balance + balance;
+                    } else {
+                        balance = bijayAccount.balance + balance;
+                    }
+                    
+                    this.addTransaction(
+                        demo.accountId,
+                        demo.type,
+                        demo.amount,
+                        'Demo transaction',
+                        balance
+                    );
+                });
+            }
+            
+            getStats(userId) {
+                const userAccounts = this.getUserAccounts(userId);
+                const totalBalance = userAccounts.reduce((sum, acc) => sum + acc.balance, 0);
+                const savingAccounts = userAccounts.filter(acc => acc.type === 'saving');
+                const currentAccounts = userAccounts.filter(acc => acc.type === 'current');
+                
+                // Get recent transactions
+                const allTransactions = [];
+                userAccounts.forEach(acc => {
+                    const accTransactions = this.getAccountTransactions(acc.id);
+                    allTransactions.push(...accTransactions.slice(0, 5));
+                });
+                
+                // Sort by date
+                allTransactions.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+                
+                return {
+                    totalAccounts: userAccounts.length,
+                    totalBalance,
+                    savingAccounts: savingAccounts.length,
+                    currentAccounts: currentAccounts.length,
+                    recentTransactions: allTransactions.slice(0, 5)
+                };
+            }
+        }
+
+        // Initialize Banking System
+        const bank = new BankingSystem();
+
+        // DOM Elements
+        const loginBtn = document.getElementById('login-btn');
+        const registerBtn = document.getElementById('register-btn');
+        const logoutBtn = document.getElementById('logout-btn');
+        const loginModal = document.getElementById('login-modal');
+        const registerModal = document.getElementById('register-modal');
+        const newAccountModal = document.getElementById('new-account-modal');
+        const closeLogin = document.getElementById('close-login');
+        const closeRegister = document.getElementById('close-register');
+        const closeNewAccount = document.getElementById('close-new-account');
+        const submitLogin = document.getElementById('submit-login');
+        const submitRegister = document.getElementById('submit-register');
+        const submitNewAccount = document.getElementById('submit-new-account');
+        const showRegister = document.getElementById('show-register');
+        const showLogin = document.getElementById('show-login');
+        const createAccountBtn = document.getElementById('create-account-btn');
+        const dashboard = document.getElementById('dashboard');
+        const mainContent = document.getElementById('main-content');
+        const notification = document.getElementById('notification');
+        const accountOptions = document.getElementById('account-options');
+        const balanceAmount = document.getElementById('balance-amount');
+        const selectedAccountType = document.getElementById('selected-account-type');
+
+        // Show notification
+        function showNotification(message, type) {
+            notification.textContent = message;
+            notification.className = `notification ${type}`;
+            notification.style.display = 'block';
+            
+            // Hide after 3 seconds
+            setTimeout(() => {
+                notification.style.display = 'none';
+            }, 3000);
+        }
+
+        // Format currency
+        function formatCurrency(amount) {
+            return '₹' + parseFloat(amount).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        }
+
+        // Format date
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric'
+            });
+        }
+
+        // Update UI with current account data
+        function updateUI() {
+            if (!bank.currentUser || !bank.selectedAccount) return;
+            
+            const account = bank.selectedAccount;
+            const user = bank.currentUser;
+            
+            // Update balance display
+            balanceAmount.textContent = formatCurrency(account.balance);
+            selectedAccountType.textContent = account.type === 'saving' ? 'Saving Account' : 'Current Account';
+            
+            // Update account info tab
+            document.getElementById('info-name').textContent = user.name;
+            document.getElementById('info-accno').textContent = account.accountNumber;
+            document.getElementById('info-type').textContent = account.type === 'saving' ? 'Saving Account' : 'Current Account';
+            document.getElementById('info-balance').textContent = formatCurrency(account.balance);
+            document.getElementById('info-created').textContent = formatDate(account.createdAt);
+            
+            // Update withdraw tab balance
+            document.getElementById('withdraw-balance').textContent = formatCurrency(account.balance);
+            
+            // Update transfer tab balance
+            document.getElementById('transfer-balance').textContent = formatCurrency(account.balance);
+        }
+
+        // Load user accounts
+        function loadUserAccounts() {
+            if (!bank.currentUser) return;
+            
+            const userAccounts = bank.getUserAccounts(bank.currentUser.id);
+            accountOptions.innerHTML = '';
+            
+            if (userAccounts.length === 0) {
+                accountOptions.innerHTML = `
+                    <div style="text-align: center; padding: 30px; color: #666;">
+                        <i class="fas fa-wallet" style="font-size: 3rem; margin-bottom: 15px;"></i>
+                        <p>No accounts found. Create your first account!</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            userAccounts.forEach(account => {
+                const isSelected = bank.selectedAccount && bank.selectedAccount.id === account.id;
+                const accountElement = document.createElement('div');
+                accountElement.className = `account-option ${isSelected ? 'selected' : ''}`;
+                accountElement.dataset.accountId = account.id;
+                
+                accountElement.innerHTML = `
+                    <div class="account-icon">
+                        <i class="fas ${account.type === 'saving' ? 'fa-piggy-bank' : 'fa-business-time'}"></i>
+                    </div>
+                    <div class="account-details">
+                        <h3>${account.type === 'saving' ? 'Saving Account' : 'Current Account'}</h3>
+                        <p>Account No: ${account.accountNumber}</p>
+                        <p>Balance: ${formatCurrency(account.balance)}</p>
+                    </div>
+                `;
+                
+                accountElement.addEventListener('click', () => {
+                    // Update selected account
+                    document.querySelectorAll('.account-option').forEach(opt => {
+                        opt.classList.remove('selected');
+                    });
+                    accountElement.classList.add('selected');
+                    
+                    bank.selectedAccount = account;
+                    updateUI();
+                    updateTransactionHistory();
+                    updateTransferAccounts();
+                    
+                    showNotification(`Switched to ${account.type === 'saving' ? 'Saving' : 'Current'} Account`, 'info');
+                });
+                
+                accountOptions.appendChild(accountElement);
+            });
+            
+            // Select first account by default if none selected
+            if (!bank.selectedAccount && userAccounts.length > 0) {
+                bank.selectedAccount = userAccounts[0];
+                document.querySelector(`.account-option[data-account-id="${userAccounts[0].id}"]`).classList.add('selected');
+                updateUI();
+                updateTransactionHistory();
+                updateTransferAccounts();
+            }
+        }
+
+        // Update transaction history
+        function updateTransactionHistory() {
+            if (!bank.selectedAccount) return;
+            
+            const transactions = bank.getAccountTransactions(bank.selectedAccount.id);
+            const historyElement = document.getElementById('transaction-history');
+            
+            historyElement.innerHTML = '';
+            
+            if (transactions.length === 0) {
+                historyElement.innerHTML = `
+                    <div class="transaction-item" style="text-align: center; color: #777;">
+                        <i class="fas fa-history" style="font-size: 2rem; margin-bottom: 10px;"></i>
+                        <p>No transactions yet</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            transactions.forEach(transaction => {
+                const transactionElement = document.createElement('div');
+                transactionElement.className = 'transaction-item';
+                
+                const date = new Date(transaction.timestamp);
+                const dateString = date.toLocaleDateString() + ' ' + date.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+                
+                transactionElement.innerHTML = `
+                    <div>
+                        <div class="transaction-type ${transaction.type.toLowerCase().includes('withdrawal') || transaction.type === 'Transfer Out' ? 'withdrawal' : 'deposit'}">
+                            ${transaction.type}
+                        </div>
+                        <div class="transaction-date">${dateString}</div>
+                        <div style="font-size: 0.9rem; color: #555;">${transaction.description}</div>
+                    </div>
+                    <div style="text-align: right;">
+                        <div class="transaction-amount ${transaction.type.toLowerCase().includes('withdrawal') || transaction.type === 'Transfer Out' ? 'withdrawal' : 'deposit'}">
+                            ${transaction.type.toLowerCase().includes('withdrawal') || transaction.type === 'Transfer Out' ? '-' : '+'}${formatCurrency(transaction.amount)}
+                        </div>
+                        <div style="font-size: 0.9rem; color: #777;">Balance: ${formatCurrency(transaction.balanceAfter)}</div>
+                    </div>
+                `;
+                
+                historyElement.appendChild(transactionElement);
+            });
+        }
+
+        // Update transfer accounts dropdown
+        function updateTransferAccounts() {
+            if (!bank.currentUser) return;
+            
+            const userAccounts = bank.getUserAccounts(bank.currentUser.id);
+            const transferFrom = document.getElementById('transfer-from');
+            const historyAccount = document.getElementById('history-account');
+            
+            // Clear existing options
+            transferFrom.innerHTML = '';
+            historyAccount.innerHTML = '';
+            
+            userAccounts.forEach(account => {
+                const option = document.createElement('option');
+                option.value = account.id;
+                option.textContent = `${account.type === 'saving' ? 'Saving' : 'Current'} Account (${account.accountNumber}) - ${formatCurrency(account.balance)}`;
+                
+                const historyOption = option.cloneNode(true);
+                
+                transferFrom.appendChild(option);
+                historyAccount.appendChild(historyOption);
+            });
+            
+            // Set default selected account
+            if (bank.selectedAccount) {
+                transferFrom.value = bank.selectedAccount.id;
+                historyAccount.value = bank.selectedAccount.id;
+            }
+        }
+
+        // Update dashboard stats
+        function updateDashboardStats() {
+            if (!bank.currentUser) return;
+            
+            const stats = bank.getStats(bank.currentUser.id);
+            const statsElement = document.getElementById('dashboard-stats');
+            
+            statsElement.innerHTML = `
+                <div class="stat-card">
+                    <i class="fas fa-wallet" style="font-size: 2rem; color: #1a2980;"></i>
+                    <div class="stat-value">${stats.totalAccounts}</div>
+                    <div class="stat-label">Total Accounts</div>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-rupee-sign" style="font-size: 2rem; color: #2ecc71;"></i>
+                    <div class="stat-value">${formatCurrency(stats.totalBalance)}</div>
+                    <div class="stat-label">Total Balance</div>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-piggy-bank" style="font-size: 2rem; color: #3498db;"></i>
+                    <div class="stat-value">${stats.savingAccounts}</div>
+                    <div class="stat-label">Saving Accounts</div>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-business-time" style="font-size: 2rem; color: #9b59b6;"></i>
+                    <div class="stat-value">${stats.currentAccounts}</div>
+                    <div class="stat-label">Current Accounts</div>
+                </div>
+            `;
+        }
+
+        // Show user accounts (for admin)
+        function showAllUserAccounts() {
+            if (!bank.currentUser || bank.currentUser.role !== 'admin') return;
+            
+            const users = bank.getAllUsers();
+            const userAccountsList = document.getElementById('user-accounts-list');
+            const userAccountsPanel = document.getElementById('user-accounts-panel');
+            
+            userAccountsList.innerHTML = '';
+            
+            if (users.length === 0) {
+                userAccountsList.innerHTML = '<p style="text-align: center; color: #666;">No users found</p>';
+                return;
+            }
+            
+            users.forEach(user => {
+                const userAccounts = bank.getUserAccounts(user.id);
+                const totalBalance = userAccounts.reduce((sum, acc) => sum + acc.balance, 0);
+                
+                const userElement = document.createElement('div');
+                userElement.className = 'user-account';
+                
+                userElement.innerHTML = `
+                    <div class="user-account-header">
+                        <div>
+                            <h3 style="margin-bottom: 5px;">${user.name}</h3>
+                            <p style="color: #666; font-size: 0.9rem;">
+                                <i class="fas fa-envelope"></i> ${user.email} | 
+                                <i class="fas fa-phone"></i> ${user.phone}
+                            </p>
+                        </div>
+                        <div>
+                            <div style="font-weight: 600; color: #1a2980; text-align: right;">
+                                ${formatCurrency(totalBalance)}
+                            </div>
+                            <div style="font-size: 0.8rem; color: #666;">Total Balance</div>
+                        </div>
+                    </div>
+                    <div style="margin-top: 10px;">
+                        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                            ${userAccounts.map(acc => `
+                                <div style="background: white; padding: 8px 12px; border-radius: 6px; border: 1px solid #eee;">
+                                    <div style="font-weight: 600;">${acc.type === 'saving' ? 'Saving' : 'Current'}</div>
+                                    <div style="font-size: 0.8rem; color: #666;">${acc.accountNumber}</div>
+                                    <div style="font-size: 0.9rem; font-weight: 600; color: #2ecc71;">${formatCurrency(acc.balance)}</div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+                
+                userAccountsList.appendChild(userElement);
+            });
+            
+            userAccountsPanel.style.display = 'block';
+        }
+
+        // Tab switching functionality
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                const tabId = tab.getAttribute('data-tab');
+                
+                // Update active tab
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                
+                // Show corresponding content
+                document.querySelectorAll('.tab-content').forEach(content => {
+                    content.classList.remove('active');
+                    if (content.id === `${tabId}-tab`) {
+                        content.classList.add('active');
+                    }
+                });
+                
+                // Clear input fields when switching tabs
+                if (tabId === 'withdraw') {
+                    document.getElementById('withdraw-amount').value = '';
+                } else if (tabId === 'deposit') {
+                    document.getElementById('deposit-amount').value = '';
+                } else if (tabId === 'transfer') {
+                    document.getElementById('transfer-to').value = '';
+                    document.getElementById('transfer-amount').value = '';
+                } else if (tabId === 'history') {
+                    updateTransactionHistory();
+                }
+            });
+        });
+
+        // Event Listeners
+        loginBtn.addEventListener('click', () => {
+            loginModal.classList.add('active');
+        });
+
+        registerBtn.addEventListener('click', () => {
+            registerModal.classList.add('active');
+        });
+
+        closeLogin.addEventListener('click', () => {
+            loginModal.classList.remove('active');
+        });
+
+        closeRegister.addEventListener('click', () => {
+            registerModal.classList.remove('active');
+        });
+
+        closeNewAccount.addEventListener('click', () => {
+            newAccountModal.classList.remove('active');
+        });
+
+        showRegister.addEventListener('click', () => {
+            loginModal.classList.remove('active');
+            registerModal.classList.add('active');
+        });
+
+        showLogin.addEventListener('click', () => {
+            registerModal.classList.remove('active');
+            loginModal.classList.add('active');
+        });
+
+        // Login submission
+        submitLogin.addEventListener('click', () => {
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+            
+            if (!email || !password) {
+                showNotification('Please fill in all fields', 'error');
+                return;
+            }
+            
+            const result = bank.loginUser(email, password);
+            
+            if (result.success) {
+                showNotification(`Welcome back, ${result.user.name}!`, 'success');
+                loginModal.classList.remove('active');
+                
+                // Show dashboard
+                dashboard.style.display = 'block';
+                mainContent.style.display = 'grid';
+                logoutBtn.style.display = 'block';
+                
+                // Update UI
+                updateDashboardStats();
+                loadUserAccounts();
+                updateTransferAccounts();
+                
+                // Clear login form
+                document.getElementById('login-email').value = '';
+                document.getElementById('login-password').value = '';
+                
+                // Show admin panel if admin
+                if (result.user.role === 'admin') {
+                    showAllUserAccounts();
+                }
+            } else {
+                showNotification(result.message, 'error');
+            }
+        });
+
+        // Register submission
+        submitRegister.addEventListener('click', () => {
+            const name = document.getElementById('register-name').value;
+            const email = document.getElementById('register-email').value;
+            const password = document.getElementById('register-password').value;
+            const phone = document.getElementById('register-phone').value;
+            const accountType = document.querySelector('input[name="account-type"]:checked').value;
+            
+            if (!name || !email || !password || !phone) {
+                showNotification('Please fill in all fields', 'error');
+                return;
+            }
+            
+            const result = bank.registerUser(name, email, password, phone, accountType);
+            
+            if (result.success) {
+                showNotification('Account created successfully! You can now login.', 'success');
+                registerModal.classList.remove('active');
+                
+                // Clear form
+                document.getElementById('register-name').value = '';
+                document.getElementById('register-email').value = '';
+                document.getElementById('register-password').value = '';
+                document.getElementById('register-phone').value = '';
+                
+                // Show login modal
+                loginModal.classList.add('active');
+            } else {
+                showNotification(result.message, 'error');
+            }
+        });
+
+        // Create new account
+        createAccountBtn.addEventListener('click', () => {
+            if (!bank.currentUser) {
+                showNotification('Please login first', 'error');
+                return;
+            }
+            
+            newAccountModal.classList.add('active');
+        });
+
+        submitNewAccount.addEventListener('click', () => {
+            const type = document.getElementById('account-type-select').value;
+            const initialDeposit = parseFloat(document.getElementById('initial-deposit').value);
+            
+            if (initialDeposit < 1000) {
+                showNotification('Minimum deposit is ₹1000', 'error');
+                return;
+            }
+            
+            const newAccount = bank.createAccount(bank.currentUser.id, type, initialDeposit);
+            
+            showNotification(`New ${type} account created successfully! Account number: ${newAccount.accountNumber}`, 'success');
+            newAccountModal.classList.remove('active');
+            
+            // Reload accounts
+            loadUserAccounts();
+            updateDashboardStats();
+            updateTransferAccounts();
+            
+            // Select the new account
+            bank.selectedAccount = newAccount;
+            updateUI();
+        });
+
+        // Withdraw funds
+        document.getElementById('withdraw-btn').addEventListener('click', () => {
+            if (!bank.selectedAccount) {
+                showNotification('Please select an account first', 'error');
+                return;
+            }
+            
+            const amount = parseFloat(document.getElementById('withdraw-amount').value);
+            
+            if (!amount || amount <= 0) {
+                showNotification('Please enter a valid amount', 'error');
+                return;
+            }
+            
+            const result = bank.withdraw(bank.selectedAccount.id, amount);
+            
+            if (result.success) {
+                showNotification(`Successfully withdrew ${formatCurrency(amount)}`, 'success');
+                updateUI();
+                loadUserAccounts(); // Reload to update balances
+                updateDashboardStats();
+                updateTransactionHistory();
+                document.getElementById('withdraw-amount').value = '';
+            } else {
+                showNotification(result.message, 'error');
+            }
+        });
+
+        // Deposit funds
+        document.getElementById('deposit-btn').addEventListener('click', () => {
+            if (!bank.selectedAccount) {
+                showNotification('Please select an account first', 'error');
+                return;
+            }
+            
+            const amount = parseFloat(document.getElementById('deposit-amount').value);
+            
+            if (!amount || amount <= 0) {
+                showNotification('Please enter a valid amount', 'error');
+                return;
+            }
+            
+            const result = bank.deposit(bank.selectedAccount.id, amount);
+            
+            if (result.success) {
+                showNotification(`Successfully deposited ${formatCurrency(amount)}`, 'success');
+                updateUI();
+                loadUserAccounts(); // Reload to update balances
+                updateDashboardStats();
+                updateTransactionHistory();
+                document.getElementById('deposit-amount').value = '';
+            } else {
+                showNotification(result.message, 'error');
+            }
+        });
+
+        // Transfer funds
+        document.getElementById('transfer-btn').addEventListener('click', () => {
+            if (!bank.selectedAccount) {
+                showNotification('Please select an account first', 'error');
+                return;
+            }
+            
+            const fromAccountId = document.getElementById('transfer-from').value;
+            const toAccountNumber = document.getElementById('transfer-to').value;
+            const amount = parseFloat(document.getElementById('transfer-amount').value);
+            
+            if (!toAccountNumber) {
+                showNotification('Please enter recipient account number', 'error');
+                return;
+            }
+            
+            if (!amount || amount <= 0) {
+                showNotification('Please enter a valid amount', 'error');
+                return;
+            }
+            
+            const result = bank.transfer(fromAccountId, toAccountNumber, amount, 'Online transfer');
+            
+            if (result.success) {
+                showNotification(`Successfully transferred ${formatCurrency(amount)} to account ${toAccountNumber}`, 'success');
+                updateUI();
+                loadUserAccounts(); // Reload to update balances
+                updateDashboardStats();
+                updateTransactionHistory();
+                document.getElementById('transfer-to').value = '';
+                document.getElementById('transfer-amount').value = '';
+            } else {
+                showNotification(result.message, 'error');
+            }
+        });
+
+        // Cancel buttons
+        document.getElementById('withdraw-cancel').addEventListener('click', () => {
+            document.getElementById('withdraw-amount').value = '';
+        });
+
+        document.getElementById('deposit-cancel').addEventListener('click', () => {
+            document.getElementById('deposit-amount').value = '';
+        });
+
+        document.getElementById('transfer-cancel').addEventListener('click', () => {
+            document.getElementById('transfer-to').value = '';
+            document.getElementById('transfer-amount').value = '';
+        });
+
+        // Refresh info button
+        document.getElementById('refresh-info').addEventListener('click', () => {
+            updateUI();
+            showNotification('Account information refreshed', 'info');
+        });
+
+        // Clear history button
+        document.getElementById('clear-history').addEventListener('click', () => {
+            if (confirm('Are you sure you want to clear transaction history for this account?')) {
+                // In a real app, you would have a method to clear transactions
+                showNotification('Transaction history cleared (demo)', 'info');
+            }
+        });
+
+        // Logout
+        logoutBtn.addEventListener('click', () => {
+            bank.logout();
+            dashboard.style.display = 'none';
+            mainContent.style.display = 'none';
+            logoutBtn.style.display = 'none';
+            document.getElementById('user-accounts-panel').style.display = 'none';
+            
+            showNotification('Logged out successfully', 'info');
+        });
+
+        // History account selector
+        document.getElementById('history-account').addEventListener('change', function() {
+            const accountId = this.value;
+            const account = bank.getAccountById(accountId);
+            
+            if (account) {
+                bank.selectedAccount = account;
+                updateUI();
+                updateTransactionHistory();
+                
+                // Update selected account in accounts panel
+                document.querySelectorAll('.account-option').forEach(opt => {
+                    opt.classList.remove('selected');
+                    if (opt.dataset.accountId === accountId) {
+                        opt.classList.add('selected');
+                    }
+                });
+            }
+        });
+
+        // Transfer from account selector
+        document.getElementById('transfer-from').addEventListener('change', function() {
+            const accountId = this.value;
+            const account = bank.getAccountById(accountId);
+            
+            if (account) {
+                document.getElementById('transfer-balance').textContent = formatCurrency(account.balance);
+            }
+        });
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            // Check if user is already logged in (demo)
+            // For demo purposes, you can auto-login with demo account
+            // const result = bank.loginUser('shivam@demo.com', 'demo123');
+            // if (result.success) {
+            //     dashboard.style.display = 'block';
+            //     mainContent.style.display = 'grid';
+            //     logoutBtn.style.display = 'block';
+            //     updateDashboardStats();
+            //     loadUserAccounts();
+            //     updateTransferAccounts();
+            // }
+        });
+    </script>
+</body>
+</html>
