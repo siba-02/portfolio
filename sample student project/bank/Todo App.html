@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo App</title>
+    <style>
+      body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #f4f6f8;
+}
+
+#main-heading {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Input grid */
+.grid-container {
+    display: grid;
+    grid-template-columns: 200px 150px 100px;
+    gap: 10px;
+    justify-content: center;
+}
+
+/* Inputs */
+#Todo-input,
+#date {
+    font-size: 15px;
+    padding: 10px;
+}
+
+/* Buttons */
+button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    border-radius: 4px;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Todo list container */
+.todo-container {
+    margin-top: 20px;
+    display: grid;
+    gap: 10px;
+    justify-content: center;
+}
+
+/* Each todo row */
+.todo-row {
+    display: grid;
+    grid-template-columns: 200px 150px 100px;
+    gap: 10px;
+}
+
+/* Text spans */
+.todo-row span {
+    background-color: white;
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+}
+
+/* Delete button */
+.todo-row button {
+    background-color: #dc3545;
+}
+
+.todo-row button:hover {
+    background-color: #a71d2a;
+}
+
+
+    </style>
+</head>
+<body>
+    <h1 id="main-heading">Todo App</h1>
+
+ <div class="grid-container">
+    <input id="Todo-input" type="text" placeholder="Enter Todo here">
+    <input id="date" type="date">
+    <button onclick="addTodo();">Add</button>
+
+</div>
+      <div class="todo-container"></div>
+
+
+  <script src="Todo.js"></script>
+
+</body>
+</html>
