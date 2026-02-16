@@ -1,295 +1,577 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>All In One – Online Shopping</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <title>All In One – online shopping (fully responsive)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+      transition: background-color 0.2s, transform 0.2s, box-shadow 0.2s;
+    }
+    body {
+      background: #f5f7fa;
+      line-height: 1.5;
+    }
 
-<style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:Arial;transition:.3s}
-body{background:#f4f6f8;line-height:1.6}
+    /* === NAVIGATION (fully responsive) === */
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 5%;
+      background: #ffffff;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      gap: 15px;
+    }
+    nav img {
+      height: 42px;
+      object-fit: contain;
+    }
+    nav input {
+      flex: 1 1 260px;
+      min-width: 200px;
+      padding: 10px 18px;
+      border-radius: 40px;
+      border: 1px solid #ccc;
+      outline: none;
+      font-size: 0.95rem;
+      background: #f9f9f9;
+    }
+    nav input:focus {
+      border-color: #ff1493;
+      box-shadow: 0 0 0 3px rgba(255,20,147,0.1);
+    }
+    .nav-items {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px 20px;
+      align-items: center;
+    }
+    .nav-items a {
+      font-weight: 600;
+      color: #333;
+      text-decoration: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.95rem;
+      white-space: nowrap;
+    }
+    .nav-items a:hover {
+      color: #ff1493;
+    }
+    #cart-count {
+      background: #ff1493;
+      color: white;
+      border-radius: 30px;
+      padding: 2px 10px;
+      margin-left: 5px;
+      font-size: 0.8rem;
+    }
 
-/* NAV */
-nav{
-display:flex;justify-content:space-between;align-items:center;
-padding:15px 30px;background:#fff;
-box-shadow:0 4px 12px rgba(0,0,0,.15);
-position:sticky;top:0;z-index:1000
-}
-nav img{height:45px}
-nav input{width:320px;padding:8px;border-radius:20px;border:1px solid #ccc}
-.nav-items a{margin-left:15px;font-weight:bold;cursor:pointer}
+    /* === secondary nav (categories) === */
+    .sec-nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px 25px;
+      background: #ffecd2;
+      padding: 14px 20px;
+      font-weight: 600;
+      color: #333;
+    }
+    .sec-nav p {
+      cursor: pointer;
+      padding: 4px 0;
+      border-bottom: 2px solid transparent;
+      transition: 0.2s;
+    }
+    .sec-nav p:hover {
+      color: #d81b60;
+      border-bottom-color: #d81b60;
+    }
 
-/* CATEGORY */
-.sec-nav{
-display:flex;justify-content:space-around;flex-wrap:wrap;
-background:#ffecd2;padding:12px;font-weight:bold
-}
-.sec-nav p:hover{color:#d81b60;cursor:pointer}
+    /* === HERO (flex + mobile text stack) === */
+    .hero {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      padding: 60px 5%;
+      background: linear-gradient(145deg, #fff0f5, #fdeff2), url('weather.jpeg') center/cover no-repeat;
+      background-blend-mode: overlay;
+      gap: 30px;
+    }
+    .hero > div {
+      flex: 1 1 300px;
+    }
+    .hero h1 {
+      font-size: clamp(28px, 5vw, 44px);
+      color: #b8004c;
+      line-height: 1.2;
+    }
+    .hero p {
+      font-size: 1.1rem;
+      margin: 8px 0;
+    }
+    .hero button {
+      margin-top: 20px;
+      padding: 12px 32px;
+      border: none;
+      background: linear-gradient(45deg, #ff1493, #ff9800);
+      color: white;
+      border-radius: 40px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 10px 20px rgba(255,20,147,0.3);
+    }
+    .hero button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 15px 30px rgba(255,20,147,0.4);
+    }
+    .hero img {
+      max-width: 100%;
+      width: 340px;
+      border-radius: 25px;
+      box-shadow: 0 25px 35px rgba(0,0,0,0.15);
+    }
 
-/* HERO */
-.hero{
-display:flex;justify-content:space-between;align-items:center;
-padding:70px 40px;
-background:url(weather.jpeg) center/cover no-repeat
-}
-.hero h1{font-size:40px;color:#b8004c}
-.hero button{
-margin-top:15px;padding:12px 25px;border:none;
-background:linear-gradient(45deg,#ff1493,#ff9800);
-color:white;border-radius:25px;font-size:16px
-}
+    /* === section styling === */
+    section {
+      padding: 70px 5%;
+    }
+    .section-title {
+      text-align: center;
+      font-size: clamp(26px, 5vw, 36px);
+      color: #ff1493;
+      margin-bottom: 45px;
+      font-weight: 700;
+    }
 
-/* SECTION */
-section{padding:60px 30px}
-.section-title{
-text-align:center;font-size:32px;color:#ff1493;margin-bottom:35px
-}
+    /* === PRODUCTS grid (fully responsive) === */
+    .products {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+      gap: 30px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    .product {
+      background: white;
+      padding: 15px 12px 20px;
+      border-radius: 24px;
+      box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+      text-align: center;
+      transition: 0.3s;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+    .product:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 25px 40px rgba(255,20,147,0.2);
+    }
+    .product img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 18px;
+      background: #eee;
+      margin-bottom: 12px;
+    }
+    .product h4 {
+      font-size: 1.2rem;
+      margin: 6px 0 4px;
+    }
+    .product p {
+      font-weight: 700;
+      color: #b8004c;
+      font-size: 1.2rem;
+      margin: 5px 0 10px;
+    }
+    .product button {
+      background: #ff9800;
+      border: none;
+      color: white;
+      padding: 10px 0;
+      width: 90%;
+      margin: 8px auto 0;
+      border-radius: 40px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.2s;
+      font-size: 0.95rem;
+    }
+    .product button:hover {
+      background: #e68900;
+      transform: scale(0.98);
+    }
 
-/* PRODUCTS */
-.products{
-display:flex;flex-wrap:wrap;justify-content:center;gap:25px
-}
-.product{
-width:230px;background:#fff;padding:12px;border-radius:15px;
-box-shadow:0 12px 25px rgba(0,0,0,.18);text-align:center
-}
-.product:hover{transform:scale(1.05)}
-.product img{
-width:100%;height:180px;border-radius:12px;object-fit:cover
-}
-.product button{
-margin-top:8px;padding:6px 15px;border:none;
-background:#ff9800;color:#fff;border-radius:20px
-}
+    /* info grid */
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 30px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .info {
+      background: white;
+      padding: 35px 20px;
+      border-radius: 30px;
+      text-align: center;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+    }
+    .info h3 {
+      color: #ff1493;
+      font-size: 1.6rem;
+    }
 
-/* INFO */
-.info-grid{
-display:flex;flex-wrap:wrap;justify-content:space-around
-}
-.info{
-width:260px;margin:20px;text-align:center
-}
+    /* seller section */
+    .seller {
+      background: linear-gradient(135deg, #c62828, #b71c1c);
+      color: white;
+      text-align: center;
+      padding: 70px 20px;
+      border-radius: 0;
+    }
+    .seller img {
+      max-width: 280px;
+      width: 90%;
+      margin: 25px 0 15px;
+      border-radius: 20px;
+    }
+    .seller h1 {
+      font-size: clamp(28px, 5vw, 42px);
+    }
 
-/* SELLER */
-.seller{
-background:#c62828;color:white;text-align:center;padding:60px
-}
+    /* FAQ */
+    .faq {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .faq p {
+      background: white;
+      padding: 18px 22px;
+      margin: 15px 0;
+      border-radius: 20px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+      border-left: 5px solid #ff9800;
+    }
 
-/* FAQ */
-.faq{max-width:800px;margin:auto}
-.faq p{
-background:#fff;padding:15px;margin:10px 0;
-border-radius:8px;box-shadow:0 3px 10px rgba(0,0,0,.1)
-}
+    /* login popup */
+    .popup {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.5);
+      backdrop-filter: blur(5px);
+      justify-content: center;
+      align-items: center;
+      z-index: 2000;
+    }
+    .popup-box {
+      background: white;
+      padding: 35px 30px;
+      border-radius: 40px;
+      width: 90%;
+      max-width: 350px;
+      text-align: center;
+      box-shadow: 0 30px 50px rgba(0,0,0,0.3);
+    }
+    .popup-box h3 { font-size: 1.8rem; margin-bottom: 20px; color: #ff1493; }
+    .popup-box input {
+      width: 100%;
+      padding: 12px 16px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 30px;
+      font-size: 1rem;
+    }
+    .popup-box button {
+      background: #ff9800;
+      border: none;
+      color: white;
+      padding: 12px 20px;
+      border-radius: 40px;
+      font-weight: bold;
+      margin: 8px 5px;
+      cursor: pointer;
+      min-width: 100px;
+    }
+    .popup-box button:last-child { background: #aaa; }
+    .popup-box button:hover { opacity: 0.9; }
 
-/* LOGIN */
-.popup{
-display:none;position:fixed;top:0;left:0;width:100%;height:100%;
-background:rgba(0,0,0,.6);justify-content:center;align-items:center
-}
-.popup-box{
-background:white;padding:30px;border-radius:10px;width:300px
-}
-.popup-box input{width:100%;padding:8px;margin:10px 0}
+    /* footer */
+    .footer {
+      background: #1e1e2f;
+      color: #ddd;
+      padding: 60px 5% 30px;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 40px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .footer div h3 { color: #ffeb3b; margin-bottom: 15px; }
+    .footer p { margin: 8px 0; }
+    .footer-copy {
+      text-align: center;
+      margin-top: 40px;
+      color: #aaa;
+      border-top: 1px solid #333;
+      padding-top: 20px;
+    }
 
-/* FOOTER */
-.footer{
-background:#212121;color:#ddd;padding:60px
-}
-.footer-grid{
-display:flex;flex-wrap:wrap;justify-content:space-around
-}
-.footer div{width:260px;margin:20px}
-.footer h3{color:#ffeb3b}
-</style>
+    /* utility */
+    .btn-download, .btn-cart {
+      cursor: pointer;
+    }
+  </style>
 </head>
-
 <body>
 
-<!-- NAV -->
+<!-- NAVIGATION (mobile first) -->
 <nav>
-<img src="all_img/All_In_One_.png" alt="All In One Logo">
-<input type="text" id="search" placeholder="Search products">
-<div class="nav-items">
-<a onclick="openLogin()">👤 Login</a>
-<a onclick="downloadApp()">⬇ Download</a>
-<a href="cart.html">🛒 Cart (<span id="cart">0</span>)</a>
-</div>
+  <img src="all_img/All_In_One_.png" alt="All In One Logo" onerror="this.src='https://via.placeholder.com/120x40?text=AllInOne'">
+  <input type="text" id="search" placeholder="🔍 Search products..." aria-label="Search">
+  <div class="nav-items">
+    <a onclick="openLogin()"><span>👤</span> Login</a>
+    <a onclick="downloadApp()"><span>⬇️</span> Download</a>
+    <a onclick="window.location.href='cart.html'"><span>🛒</span> Cart <span id="cart-count">0</span></a>
+  </div>
 </nav>
 
-<!-- CATEGORY -->
+<!-- CATEGORY ROW -->
 <div class="sec-nav">
-<p onclick="filter('all')">All</p>
-<p onclick="filter('women')">Women</p>
-<p onclick="filter('men')">Men</p>
-<p onclick="filter('kids')">Kids</p>
-<p onclick="filter('electronics')">Electronics</p>
-<p onclick="filter('home')">Home</p>
+  <p onclick="filter('all')">🔥 All</p>
+  <p onclick="filter('women')">👗 Women</p>
+  <p onclick="filter('men')">👔 Men</p>
+  <p onclick="filter('kids')">🧸 Kids</p>
+  <p onclick="filter('electronics')">📱 Electronics</p>
+  <p onclick="filter('home')">🏠 Home</p>
 </div>
 
-<!-- HERO -->
+<!-- HERO BANNER -->
 <div class="hero">
-<div>
-<h1>India’s Most Trusted Online Shopping</h1>
-<p>✔ Free Delivery</p>
-<p>✔ Cash on Delivery</p>
-<p>✔ Easy Return</p>
-<button onclick="downloadApp()">Download App</button>
-</div>
-<img src="all_img/all.webp" width="320">
+  <div>
+    <h1>India’s Most Trusted Online Shopping</h1>
+    <p>✔ Free Delivery · ✔ Cash on Delivery · ✔ Easy Return</p>
+    <button onclick="downloadApp()">📲 Download App</button>
+  </div>
+  <img src="all_img/all.webp" alt="shopping collage" onerror="this.src='https://via.placeholder.com/320x240?text=Special+Offers'">
 </div>
 
-<!-- PRODUCTS -->
+<!-- PRODUCTS SECTION (featured) -->
 <section>
-<h2 class="section-title">Featured Products</h2>
-<div class="products">
+  <h2 class="section-title">✨ Featured Products ✨</h2>
+  <div class="products" id="product-grid">
 
-<div class="product" data-cat="women" data-name="saree">
-<img src="all_img/saree.webp">
-<h4>Saree</h4><p>₹999</p>
-<button onclick="addCart('Saree',999,'all_img/saree.webp')">Add to Cart</button>
-</div>
-
-<div class="product" data-cat="women" data-name="kurti">
-<img src="all_img/kurti.webp">
-<h4>Kurti</h4><p>₹899</p>
-<button onclick="addCart('Kurti',899,'all_img/kurti.webp')">Add to Cart</button>
-</div>
-
-<div class="product" data-cat="men" data-name="shirt">
-<img src="all_img/men.webp">
-<h4>Men Shirt</h4><p>₹699</p>
-<button onclick="addCart('Men Shirt',699,'all_img/men.webp')">Add to Cart</button>
-</div>
-
-<div class="product" data-cat="men" data-name="shoes">
-<img src="all_img/men%20shoes.webp">
-<h4>Men Shoes</h4><p>₹899</p>
-<button onclick="addCart('Men Shoes',899,'all_img/men shoes.webp')">Add to Cart</button>
-</div>
-
-<div class="product" data-cat="kids" data-name="baby">
-<img src="all_img/huggies.webp">
-<h4>Baby Care</h4><p>₹299</p>
-<button onclick="addCart('Baby Care',299,'all_img/huggies.webp')">Add to Cart</button>
-</div>
-
-<div class="product" data-cat="electronics" data-name="electronics">
-<img src="all_img/ec.webp">
-<h4>Electronics</h4><p>₹1299</p>
-<button onclick="addCart('Electronics',1299,'all_img/ec.webp')">Add to Cart</button>
-</div>
-
-<div class="product" data-cat="home" data-name="bag">
-<img src="all_img/bag.webp">
-<h4>Bag</h4><p>₹799</p>
-<button onclick="addCart('Bag',799,'all_img/bag.webp')">Add to Cart</button>
-</div>
-
-<div class="product" data-cat="home" data-name="accessories">
-<img src="all_img/accessories.webp">
-<h4>Accessories</h4><p>₹399</p>
-<button onclick="addCart('Accessories',399,'all_img/accessories.webp')">Add to Cart</button>
-</div>
-
-</div>
+    <div class="product" data-cat="women" data-name="saree">
+      <img src="all_img/saree.webp" onerror="this.src='https://via.placeholder.com/200x180?text=Saree'">
+      <h4>Silk Saree</h4><p>₹999</p>
+      <button onclick="addCart('Silk Saree',999,'all_img/saree.webp')">➕ Add to Cart</button>
+    </div>
+    <div class="product" data-cat="women" data-name="kurti">
+      <img src="all_img/kurti.webp" onerror="this.src='https://via.placeholder.com/200x180?text=Kurti'">
+      <h4>Designer Kurti</h4><p>₹899</p>
+      <button onclick="addCart('Designer Kurti',899,'all_img/kurti.webp')">➕ Add to Cart</button>
+    </div>
+    <div class="product" data-cat="men" data-name="shirt">
+      <img src="all_img/men.webp" onerror="this.src='https://via.placeholder.com/200x180?text=Shirt'">
+      <h4>Casual Shirt</h4><p>₹699</p>
+      <button onclick="addCart('Casual Shirt',699,'all_img/men.webp')">➕ Add to Cart</button>
+    </div>
+    <div class="product" data-cat="men" data-name="shoes">
+      <img src="all_img/men%20shoes.webp" onerror="this.src='https://via.placeholder.com/200x180?text=Shoes'">
+      <h4>Sports Shoes</h4><p>₹899</p>
+      <button onclick="addCart('Sports Shoes',899,'all_img/men shoes.webp')">➕ Add to Cart</button>
+    </div>
+    <div class="product" data-cat="kids" data-name="baby">
+      <img src="all_img/huggies.webp" onerror="this.src='https://via.placeholder.com/200x180?text=Baby+Care'">
+      <h4>Baby Diapers</h4><p>₹299</p>
+      <button onclick="addCart('Baby Diapers',299,'all_img/huggies.webp')">➕ Add to Cart</button>
+    </div>
+    <div class="product" data-cat="electronics" data-name="electronics">
+      <img src="all_img/ec.webp" onerror="this.src='https://via.placeholder.com/200x180?text=Electronics'">
+      <h4>Wireless Earbuds</h4><p>₹1299</p>
+      <button onclick="addCart('Wireless Earbuds',1299,'all_img/ec.webp')">➕ Add to Cart</button>
+    </div>
+    <div class="product" data-cat="home" data-name="bag">
+      <img src="all_img/bag.webp" onerror="this.src='https://via.placeholder.com/200x180?text=Bag'">
+      <h4>Travel Backpack</h4><p>₹799</p>
+      <button onclick="addCart('Travel Backpack',799,'all_img/bag.webp')">➕ Add to Cart</button>
+    </div>
+    <div class="product" data-cat="home" data-name="accessories">
+      <img src="all_img/accessories.webp" onerror="this.src='https://via.placeholder.com/200x180?text=Accessories'">
+      <h4>Stylish Watch</h4><p>₹399</p>
+      <button onclick="addCart('Stylish Watch',399,'all_img/accessories.webp')">➕ Add to Cart</button>
+    </div>
+  </div>
 </section>
 
-<!-- WHY US -->
+<!-- WHY US / INFO -->
 <section>
-<h2 class="section-title">Why Customers Love Us</h2>
-<div class="info-grid">
-<div class="info"><h3>50M+ Users</h3><p>Trusted Across India</p></div>
-<div class="info"><h3>Fast Delivery</h3><p>Doorstep Service</p></div>
-<div class="info"><h3>Secure Payment</h3><p>100% Safe</p></div>
-<div class="info"><h3>Easy Returns</h3><p>No Hassle</p></div>
-</div>
+  <h2 class="section-title">Why Customers Love Us</h2>
+  <div class="info-grid">
+    <div class="info"><h3>50M+</h3><p>Trusted Users</p></div>
+    <div class="info"><h3>🚚 Fast</h3><p>Free Delivery*</p></div>
+    <div class="info"><h3>🔒 Secure</h3><p>100% Payments</p></div>
+    <div class="info"><h3>↩️ Easy</h3><p>7‑day Returns</p></div>
+  </div>
 </section>
 
-<!-- SELLER -->
+<!-- SELLER BANNER -->
 <div class="seller">
-<h1>Become a Seller</h1>
-<img src="all_img/seler.png" width="280">
-<p>Grow your business with us</p>
+  <h1>Become a Seller</h1>
+  <img src="all_img/seler.png" alt="seller" onerror="this.src='https://via.placeholder.com/280x160?text=Sell+with+us'">
+  <p style="font-size:1.2rem; margin-top:15px;">Grow your business with All In One</p>
 </div>
 
-<!-- FAQ -->
+<!-- FAQ SECTION -->
 <section>
-<h2 class="section-title">FAQ</h2>
-<div class="faq">
-<p><b>Q:</b> How to order?<br><b>A:</b> Add to cart and checkout.</p>
-<p><b>Q:</b> COD available?<br><b>A:</b> Yes.</p>
-<p><b>Q:</b> Return policy?<br><b>A:</b> 7-day easy return.</p>
-</div>
+  <h2 class="section-title">Frequently Asked Questions</h2>
+  <div class="faq">
+    <p><b>Q:</b> How do I place an order?<br><b>A:</b> Add items to cart and proceed to checkout.</p>
+    <p><b>Q:</b> Is Cash on Delivery available?<br><b>A:</b> Yes, COD is available on all orders.</p>
+    <p><b>Q:</b> What is the return policy?<br><b>A:</b> Easy 7‑day return on most items.</p>
+  </div>
 </section>
 
-<!-- LOGIN -->
-<div class="popup" id="login">
-<div class="popup-box">
-<h3>Login</h3>
-<input placeholder="Username">
-<input type="password" placeholder="Password">
-<button onclick="login()">Login</button>
-<button onclick="closeLogin()">Close</button>
-</div>
+<!-- LOGIN POPUP -->
+<div class="popup" id="loginPopup">
+  <div class="popup-box">
+    <h3>✨ Welcome Back</h3>
+    <input type="text" placeholder="Username" id="loginUser">
+    <input type="password" placeholder="Password" id="loginPass">
+    <button onclick="login()">Login</button>
+    <button onclick="closeLogin()">Close</button>
+  </div>
 </div>
 
 <!-- FOOTER -->
-<div class="footer">
-<div class="footer-grid">
-<div>
-<h3>About</h3>
-<p>All In One is an Indian online shopping platform.</p>
-</div>
-<div>
-<h3>Support</h3>
-<p>Help Center</p>
-<p>Returns</p>
-</div>
-<div>
-<h3>Contact</h3>
-<p>Email: support@allinone.com</p>
-</div>
-</div>
-<p style="text-align:center;margin-top:20px">© 2026 All In One</p>
-</div>
+<footer class="footer">
+  <div class="footer-grid">
+    <div>
+      <h3>All In One</h3>
+      <p>India’s favorite online shopping destination. Trusted by millions.</p>
+    </div>
+    <div>
+      <h3>Support</h3>
+      <p>Help Center</p>
+      <p>Returns & Refunds</p>
+      <p>Track Order</p>
+    </div>
+    <div>
+      <h3>Contact</h3>
+      <p>📧 support@allinone.com</p>
+      <p>📞 1800-123-5555</p>
+    </div>
+  </div>
+  <div class="footer-copy">
+    © 2026 All In One – All rights reserved.  |  <a style="color:#ffeb3b;" href="#">Privacy</a>  |  <a style="color:#ffeb3b;" href="#">Terms</a>
+  </div>
+</footer>
 
-<!-- SCRIPT -->
 <script>
-function addCart(name, price, img){
-    let cart = JSON.parse(localStorage.getItem("cart")) || [];
-    let found = cart.find(p => p.name === name);
-
-    if(found){
-        found.qty++;
-    } else {
-        cart.push({name, price, img, qty:1});
+  (function() {
+    // ---- CART MANAGEMENT (persist with localStorage) ----
+    function updateCartCounter() {
+      const cart = JSON.parse(localStorage.getItem('allInOneCart')) || [];
+      document.getElementById('cart-count').innerText = cart.length;
     }
+    updateCartCounter(); // initial
 
-    localStorage.setItem("cart", JSON.stringify(cart));
-    document.getElementById("cart").innerText = cart.length;
-    alert("Item added to cart");
-}
+    window.addCart = function(name, price, img) {
+      let cart = JSON.parse(localStorage.getItem('allInOneCart')) || [];
+      // look for same name
+      const existing = cart.find(item => item.name === name);
+      if (existing) {
+        existing.qty = (existing.qty || 1) + 1;
+      } else {
+        cart.push({ name, price, img, qty: 1 });
+      }
+      localStorage.setItem('allInOneCart', JSON.stringify(cart));
+      updateCartCounter();
+      alert(`🛒 "${name}" added to cart!`);
+    };
 
-function openLogin(){document.getElementById("login").style.display="flex";}
-function closeLogin(){document.getElementById("login").style.display="none";}
-function login(){alert("Login Successful");closeLogin();}
-function downloadApp(){alert("Download Started");}
+    // ---- FILTER (category) ----
+    window.filter = function(category) {
+      const products = document.querySelectorAll('.product');
+      products.forEach(p => {
+        if (category === 'all') {
+          p.style.display = 'flex';
+        } else {
+          p.style.display = p.dataset.cat === category ? 'flex' : 'none';
+        }
+      });
+    };
 
-function filter(cat){
-document.querySelectorAll(".product").forEach(p=>{
-p.style.display=(cat=="all"||p.dataset.cat==cat)?"block":"none";
-});
-}
+    // ---- SEARCH (live filtering) ----
+    const searchInput = document.getElementById('search');
+    searchInput.addEventListener('keyup', function() {
+      const term = this.value.trim().toLowerCase();
+      const products = document.querySelectorAll('.product');
+      products.forEach(p => {
+        const name = p.dataset.name.toLowerCase();
+        if (name.includes(term) || term === '') {
+          p.style.display = 'flex';
+        } else {
+          p.style.display = 'none';
+        }
+      });
+    });
 
-document.getElementById("search").addEventListener("keyup",()=>{
-let v=search.value.toLowerCase();
-document.querySelectorAll(".product").forEach(p=>{
-p.style.display=p.dataset.name.includes(v)?"block":"none";
-});
-});
+    // ---- LOGIN POPUP ----
+    window.openLogin = function() {
+      document.getElementById('loginPopup').style.display = 'flex';
+    };
+    window.closeLogin = function() {
+      document.getElementById('loginPopup').style.display = 'none';
+    };
+    window.login = function() {
+      const user = document.getElementById('loginUser').value.trim();
+      if (user) {
+        alert(`✅ Welcome, ${user}! (Demo login)`);
+      } else {
+        alert('Please enter username');
+      }
+      closeLogin();
+    };
+    // click outside popup to close
+    document.getElementById('loginPopup').addEventListener('click', function(e) {
+      if (e.target === this) closeLogin();
+    });
+
+    // ---- DOWNLOAD APP ----
+    window.downloadApp = function() {
+      alert('📲 Download link sent to your phone (demo)');
+    };
+
+    // ---- placeholder fallback for all images (already handled via onerror) ----
+  })();
 </script>
 
+<!-- optional cart.html placeholder prevention -->
+<script>
+  // prevent "cart.html" not found error when clicking cart
+  document.querySelector('[onclick="window.location.href=\'cart.html\'"]')?.addEventListener('click', (e) => {
+    e.preventDefault();
+    alert('🛒 Cart page – you have ' + (JSON.parse(localStorage.getItem('allInOneCart')) || []).length + ' items');
+  });
+</script>
 </body>
 </html>
